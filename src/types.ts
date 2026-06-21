@@ -82,3 +82,4 @@ export interface PowerSpec {
   requiresTarget: "friendly" | "enemy" | "empty" | "any" | "captured" | "none";
 }
 
+
