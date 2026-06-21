@@ -497,5 +497,4 @@ export function calculateBestMove(board: Board, faction: Faction): { from: Coord
   const bestScore = possibleMoves[0].score;
   const candidates = possibleMoves.filter((m) => Math.abs(m.score - bestScore) < 15);
 
-  return candidates[Math.floor(Math.random() * candidates.length)];
-}
+  return candidates[Math.floor(
