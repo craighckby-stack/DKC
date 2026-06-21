@@ -60,8 +60,7 @@ async function startServer() {
 
     if (!client) {
       // Local thematic fallback
-      console.log("No GEMINI_API_KEY found, playing fallback dialogues.");
-      const jText = JESUS_FALLBACKS[Math.floor(Math.random() * JESUS_FALLBACKS.length)];
+const jText = JESUS_FALLBACKS[Math.floor(Math.random() * JESUS_FALLBACKS.length)];
       const cText = CAAN_FALLBACKS[Math.floor(Math.random() * CAAN_FALLBACKS.length)];
       
       const isJesusTrigger = actionDescription?.toLowerCase().includes("jesus") || Math.random() > 0.5;
@@ -172,8 +171,8 @@ Return a valid JSON object matching:
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Darlek Caan vs Jesus Chess Server] running at http://localhost:${PORT}`);
-  });
+});
 }
 
 startServer();
+
