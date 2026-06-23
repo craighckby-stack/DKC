@@ -3,8 +3,11 @@
   "version": "3.0.0",
   "description": "Supreme Code Evolution Controller - Agent Orchestra & Sovereign Kernel",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
-    "dev": "concurrently \"vite\" \"tsx watch server.ts\"",
+    "dev": "vite",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build",
     "build:server": "esbuild server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/server.js",
@@ -12,7 +15,8 @@
     "lint": "tsc --noEmit && eslint . --ext .ts,.tsx",
     "test": "vitest run",
     "clean": "rm -rf dist .turbo .next",
-    "analyze": "source-map-explorer dist/assets/*.js"
+    "analyze": "source-map-explorer dist/assets/*.js",
+    "evolve": "tsx scripts/evolution-engine.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -21,7 +25,9 @@
     "motion": "^12.23.24",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "pino": "^9.6.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",
@@ -31,7 +37,6 @@
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.4.21",
-    "concurrently": "^9.1.2",
     "esbuild": "^0.25.0",
     "eslint": "^9.20.0",
     "tailwindcss": "^4.1.14",
