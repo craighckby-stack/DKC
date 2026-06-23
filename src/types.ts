@@ -4,11 +4,11 @@
  * DARLEK CANN v3.0 - Unified System Architecture Definitions
  */
 
-// --- Core Dimensional Types ---
+// --- Dimensional & Spatial Primitives ---
 export type Vector3D = { x: number; y: number; z: number };
 export type Coord = { row: number; col: number };
 
-// --- Faction & Identity ---
+// --- Identity & Factional Logic ---
 export type Faction = 'jesus' | 'caan';
 export type PieceType = 'p' | 'r' | 'n' | 'b' | 'q' | 'k' | 'wine_knight' | 'cyber_drone';
 
@@ -23,28 +23,25 @@ export interface AgentState {
   isLocked: boolean;
 }
 
-// --- Piece & Entity Definitions ---
-export interface PieceMetadata {
-  isAscended?: boolean;
-  ascendedTurns?: number;
-  isCyber?: boolean;
-  name?: string;
-  avatar?: string;
-  quantumSignature?: Vector3D;
+export interface QuantumSignature {
+  isAscended: boolean;
+  ascendedTurns: number;
+  isCyber: boolean;
+  fluxVector: Vector3D;
 }
 
+// --- Entity Definitions ---
 export interface Piece {
   id: string;
   type: PieceType;
   faction: Faction;
   hasMoved: boolean;
   position: Coord;
-  metadata: PieceMetadata;
+  quantum: QuantumSignature;
   agent: AgentState;
 }
 
-export type Cell = Piece | null;
-export type Board = Cell[][];
+export type Board = (Piece | null)[][];
 
 // --- Game & Debate Logic ---
 export type GameMode = 'jesus-vs-caan-ai' | 'caan-vs-jesus-ai' | 'ai-vs-ai' | 'local-coop';
@@ -104,62 +101,9 @@ export interface SystemMetrics {
   nodeHealth: 'stable' | 'degraded' | 'critical';
 }
 
-// --- Event Bus ---
-export interface SystemEvent {
-  type: 'MOVE_EXECUTED' | 'POWER_ACTIVATED' | 'AGENT_THOUGHT' | 'DEBATE_VERDICT';
-  payload: any;
-  timestamp: number;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// --- Discriminated Event Bus ---
+export type SystemEvent =
+  | { type: 'MOVE_EXECUTED'; payload: { from: Coord; to: Coord; pieceId: string } }
+  | { type: 'POWER_ACTIVATED'; payload: { powerId: PowerID; target: Coord } }
+  | { type: 'AGENT_THOUGHT'; payload: { agentId: string; thought: string } }
+  | { type: 'DEBATE_VERDICT'; payload: { topic: string; winner: Faction } };
