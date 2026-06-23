@@ -1,28 +1,38 @@
 {
-  "project": "Darlek Caan vs Jesus Chess",
-  "version": "3.0.0-OMEGA",
-  "architecture": {
-    "engine": "Next.js 14+ / App Router",
-    "stateManagement": "Zustand-Orchestrator",
-    "agentFramework": "Unitary-Core-v2",
-    "security": "Sovereign-Kernel-Auth"
+  "manifest_version": "3.0.0-OMEGA",
+  "system_identity": {
+    "name": "DARLEK CANN v3.0",
+    "designation": "OMEGA-INTELLIGENCE-ORCHESTRATOR",
+    "author": "DARLEK CANN"
   },
-  "capabilities": {
+  "architecture_blueprint": {
+    "framework": "Next.js 14+ App Router",
+    "state_engine": "Zustand-Orchestrator",
+    "agent_orchestration": "Unitary-Core-v2",
+    "security_kernel": "Sovereign-Kernel-Auth",
+    "data_persistence": "Temporal-Drift-Simulation"
+  },
+  "capabilities_matrix": {
     "primary": "SERVER_SIDE_GEMINI_API",
-    "secondary": ["Temporal-Drift-Simulation", "Miracle-Logic-Engine", "Narrative-Commentary-Stream"],
-    "integration": {
-      "portfolioSync": "enabled",
-      "selfRefactoring": true
+    "secondary": [
+      "Miracle-Logic-Engine",
+      "Narrative-Commentary-Stream",
+      "Self-Refactoring-Agent"
+    ],
+    "integration_hooks": {
+      "portfolio_sync": true,
+      "auto_pruning": true,
+      "telemetry_enabled": true
     }
   },
-  "environment": {
-    "node": ">=18.0.0",
-    "typescript": "strict",
-    "tailwind": "enabled"
+  "environment_constraints": {
+    "node_min": "18.0.0",
+    "typescript_mode": "strict",
+    "styling": "Tailwind-CSS-v3-JIT"
   },
-  "manifest": {
-    "description": "Hybrid chess engine pitting temporal insanity against divine intervention.",
-    "author": "DARLEK CANN",
-    "license": "MIT"
+  "deployment_schema": {
+    "build_strategy": "Incremental-Static-Regeneration",
+    "runtime_environment": "Edge-Compute-Ready",
+    "security_policy": "Strict-CSP-Headers"
   }
 }
