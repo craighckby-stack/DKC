@@ -1,20 +1,19 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * DARLEK CANN v3.0 - Core Type Definitions
+ * DARLEK CANN v3.0 - Evolved Core Type Definitions
  */
 
-export type Faction = "jesus" | "caan";
+export type Faction = 'jesus' | 'caan';
 
-export type PieceType = 
-  | "p" | "r" | "n" | "b" | "q" | "k" 
-  | "wine_knight" 
-  | "cyber_drone";
+export type PieceType = 'p' | 'r' | 'n' | 'b' | 'q' | 'k' | 'wine_knight' | 'cyber_drone';
 
-export interface AgentProfile {
-  personality: "aggressive" | "cautious" | "balanced" | "erratic" | "protective";
-  voiceDesc: string;
-  intelligenceTier: 1 | 2 | 3; // For LLM fallback orchestration
+export interface Vector { x: number; y: number; z: number; }
+
+export interface AgentState {
+  personality: 'aggressive' | 'cautious' | 'balanced' | 'erratic' | 'protective';
+  intelligenceTier: 1 | 2 | 3;
+  quantumEntropy: number;
   lastThoughtProcess: string;
 }
 
@@ -23,6 +22,7 @@ export interface Piece {
   type: PieceType;
   faction: Faction;
   hasMoved: boolean;
+  position: Coord;
   metadata: {
     isAscended?: boolean;
     ascendedTurns?: number;
@@ -30,7 +30,7 @@ export interface Piece {
     name?: string;
     avatar?: string;
   };
-  agent: AgentProfile;
+  agent: AgentState;
 }
 
 export type Cell = Piece | null;
@@ -38,14 +38,14 @@ export type Board = Cell[][];
 
 export interface Coord { row: number; col: number; }
 
-export type GameMode = "jesus-vs-caan-ai" | "caan-vs-jesus-ai" | "ai-vs-ai" | "local-coop";
+export type GameMode = 'jesus-vs-caan-ai' | 'caan-vs-jesus-ai' | 'ai-vs-ai' | 'local-coop';
 
 export interface ChatMessage {
   id: string;
-  speaker: Faction | "system";
+  speaker: Faction | 'system';
   text: string;
   timestamp: number;
-  metadata?: Record<string, any>;
+  contextVector?: number[];
 }
 
 export interface DebateEngine {
@@ -55,32 +55,35 @@ export interface DebateEngine {
   verdict: string | null;
 }
 
+export type PowerID = 
+  | 'water_to_wine' | 'resurrection' | 'loaves_and_fishes' | 'divine_protection' | 'forgiveness'
+  | 'temporal_shift' | 'exterminate' | 'cyber_upgrade' | 'chronos_distortion' | 'temporal_barrier';
+
+export interface PowerSpec {
+  id: PowerID;
+  name: string;
+  cost: number;
+  cooldown: number;
+  effectRadius: number;
+  description: string;
+  faction: Faction;
+  targetType: 'friendly' | 'enemy' | 'empty' | 'any' | 'captured' | 'none';
+}
+
 export interface GameState {
   board: Board;
   turn: Faction;
   history: string[];
   resources: { jesusPP: number; caanPP: number };
   mode: GameMode;
-  status: "setup" | "playing" | "checkmate" | "stalemate" | "exterminated_king" | "draw";
+  status: 'setup' | 'playing' | 'checkmate' | 'stalemate' | 'exterminated_king' | 'draw';
   selectedCoord: Coord | null;
   validMoves: Coord[];
   activePower: PowerID | null;
   chats: ChatMessage[];
   isThinking: boolean;
   debate: DebateEngine | null;
-}
-
-export type PowerID = 
-  | "water_to_wine" | "resurrection" | "loaves_and_fishes" | "divine_protection" | "forgiveness"
-  | "temporal_shift" | "exterminate" | "cyber_upgrade" | "chronos_distortion" | "temporal_barrier";
-
-export interface PowerSpec {
-  id: PowerID;
-  name: string;
-  cost: number;
-  description: string;
-  faction: Faction;
-  targetType: "friendly" | "enemy" | "empty" | "any" | "captured" | "none";
+  quantumFlux: number;
 }
 
 export interface SystemMetrics {
@@ -88,4 +91,5 @@ export interface SystemMetrics {
   tokenUsage: number;
   activeAgents: number;
   memoryPressure: number;
+  nodeHealth: 'stable' | 'degraded' | 'critical';
 }
