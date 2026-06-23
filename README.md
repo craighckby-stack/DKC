@@ -1,15 +1,14 @@
-# DARLEK CANN v3.0: OMEGA Orchestrator
+# DARLEK CANN v3.0: Epistemic Debate Engine
 
-## Architectural Blueprint
-- **Core**: Next.js 15 / Vite 6 / TypeScript 5.8
-- **Swarm Intelligence**: Multi-agent orchestration via `@google/genai`
-- **Self-Evolution**: `npm run evolve` triggers the recursive self-refactoring engine.
+## Architecture
+- **Core**: Next.js/Express hybrid for real-time state synchronization.
+- **Cognitive Layer**: Gemini 1.5-Flash integration with fallback circuit breakers.
+- **State Management**: Sovereign-Kernel inspired persistence layer.
 
-## Integration Schema
-1. `unitary-core`: Quantum data processing layer.
-2. `sovereign-kernel`: Self-healing runtime hooks.
-3. `SN: OMEGA`: Unified consciousness framework.
+## Workflow
+1. Input: Chess move or debate prompt.
+2. Processing: CognitiveEngine parses intent via LLM.
+3. Output: JSON-structured dialogue and tactical analysis.
 
-## Usage
-- `npm run evolve`: Trigger code mutation.
-- `npm run swarm:init`: Initialize agent swarm nodes.
+## Integration
+Connects to `unitary-core` for multi-dimensional analysis.
