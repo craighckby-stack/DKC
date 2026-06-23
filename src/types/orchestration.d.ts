@@ -1,11 +1,10 @@
-export interface SystemState {
-  initialized: boolean;
-  swarmStatus: 'idle' | 'active' | 'error';
-  memoryLoad: number;
+export interface BootDiagnostic {
+  msg: string;
+  delay: number;
 }
 
-export interface AgentNode {
-  id: string;
-  role: 'controller' | 'worker' | 'observer';
-  computeWeight: number;
+export interface OmegaCoreState {
+  isInitialized: boolean;
+  swarmStatus: 'idle' | 'syncing' | 'active' | 'error';
+  quantumEntropy: number;
 }
