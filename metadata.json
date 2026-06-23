@@ -27,6 +27,11 @@
       "telemetry": true
     }
   },
+  "quantum_state_config": {
+    "entropy_threshold": 0.85,
+    "swarm_node_limit": 12,
+    "fallback_strategy": "LLM_TRIAD_CONSENSUS"
+  },
   "constraints": {
     "node_min": "18.0.0",
     "typescript": "strict",
@@ -36,6 +41,7 @@
   "deployment": {
     "strategy": "Incremental-Static-Regeneration",
     "runtime": "Edge-Compute-Ready",
-    "environment": "Production"
+    "environment": "Production",
+    "auto_scale": true
   }
 }
