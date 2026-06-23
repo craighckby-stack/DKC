@@ -1,55 +1,67 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { GameState, Faction, Coord, Board, Piece, PowerSpec, ChatMessage, GameMode, CouncilDebate } from './types';
-import { createInitialBoard, cloneBoard, findKing, hasFactionAnyLegalMoves, isFactionsKingInCheck, calculateBestMove, movePieceOnBoard } from './utils/engine';
-import { audio } from './utils/audio';
+import React, { useEffect, useCallback } from 'react';
+import { Board, Coord, Faction, ChatMessage } from './types';
 import { ChessBoard } from './components/ChessBoard';
 import { CommentaryPanel } from './components/CommentaryPanel';
 import { ControlOverlay } from './components/ControlOverlay';
 import { useGameOrchestrator } from './hooks/useGameOrchestrator';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
+/**
+ * DARLEK CANN v3.0 // CHESS CORE
+ * Orchestrates the epistemic conflict between Jesus and Caan.
+ * Architecture: Next.js + Agent Orchestra + State Machine
+ */
 export default function App() {
-  const [board, setBoard] = useState<Board>(createInitialBoard);
-  const [turn, setTurn] = useState<Faction>('jesus');
-  const [status, setStatus] = useState<'setup' | 'playing' | 'checkmate' | 'stalemate'>('setup');
-  const [pp, setPp] = useState({ jesus: 4, caan: 4 });
-  const [isThinking, setIsThinking] = useState(false);
-  const [chats, setChats] = useState<ChatMessage[]>([]);
-  
-  const orchestrator = useGameOrchestrator({
-    board, setBoard, turn, setTurn, status, setStatus, pp, setPp, setIsThinking, setChats
+  const {
+    board,
+    turn,
+    status,
+    pp,
+    isThinking,
+    chats,
+    executeMove,
+    resetGame,
+    triggerCaanProtocol,
+    setStatus
+  } = useGameOrchestrator();
+
+  // Global key bindings siphoned from 'sovereign-v86' for system control
+  useKeyboardShortcuts({
+    Escape: () => setStatus('setup'),
+    'c': triggerCaanProtocol,
+    'r': resetGame
   });
 
   const handleMove = useCallback((from: Coord, to: Coord) => {
     if (status !== 'playing' || isThinking) return;
-    orchestrator.executeMove(from, to);
-  }, [status, isThinking, orchestrator]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setStatus('setup');
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    executeMove(from, to);
+  }, [status, isThinking, executeMove]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
-      <header className="p-4 border-b border-slate-800 flex justify-between items-center">
-        <h1 className="text-xl font-bold tracking-tighter text-rose-500">DARLEK CANN v3.0 // CHESS CORE</h1>
-        <div className="flex gap-4 text-xs font-mono">
-          <span>JESUS_PP: {pp.jesus}</span>
-          <span>CAAN_PP: {pp.caan}</span>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-rose-500/30">
+      <header className="p-4 border-b border-slate-800 flex justify-between items-center backdrop-blur-md">
+        <h1 className="text-xl font-bold tracking-tighter text-rose-500">
+          DARLEK CANN v3.0 // <span className="text-slate-400">EPISTEMIC_CHESS</span>
+        </h1>
+        <div className="flex gap-6 text-xs font-mono bg-slate-900 px-3 py-1 rounded border border-slate-800">
+          <span className={turn === 'jesus' ? 'text-blue-400' : 'text-slate-600'}>JESUS_PP: {pp.jesus}</span>
+          <span className={turn === 'caan' ? 'text-rose-400' : 'text-slate-600'}>CAAN_PP: {pp.caan}</span>
         </div>
       </header>
-      <main className="flex-1 flex p-6 gap-6">
-        <ChessBoard board={board} onSquareClick={handleMove} />
-        <div className="w-80 flex flex-col gap-4">
+      
+      <main className="flex-1 flex p-6 gap-6 max-w-7xl mx-auto w-full">
+        <div className="flex-1 flex items-center justify-center">
+          <ChessBoard board={board} onSquareClick={handleMove} />
+        </div>
+        
+        <aside className="w-96 flex flex-col gap-4">
           <CommentaryPanel chats={chats} isThinking={isThinking} />
           <ControlOverlay 
-            onReset={() => orchestrator.resetGame()} 
-            onCheat={orchestrator.triggerCaanProtocol} 
+            onReset={resetGame} 
+            onCheat={triggerCaanProtocol} 
+            disabled={isThinking}
           />
-        </div>
+        </aside>
       </main>
     </div>
   );
