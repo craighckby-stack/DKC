@@ -1,22 +1,46 @@
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
-import {defineConfig} from 'vite';
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const isAgentMode = env.DISABLE_HMR === 'true';
+
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+    ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(__dirname, './src'),
+        '@components': path.resolve(__dirname, './src/components'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
+        '@lib': path.resolve(__dirname, './src/lib'),
+        '@types': path.resolve(__dirname, './src/types'),
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
-      hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
+      hmr: !isAgentMode,
+      watch: isAgentMode ? null : { usePolling: true },
+      port: 3000,
+      strictPort: true,
+    },
+    build: {
+      sourcemap: mode !== 'production',
+      minify: 'esbuild',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+          },
+        },
+      },
+    },
+    define: {
+      'process.env.BUILD_VERSION': JSON.stringify(process.env.npm_package_version),
+      'process.env.AGENT_CORE_ID': JSON.stringify('DARLEK-CANN-V3-CORE'),
     },
   };
 });
