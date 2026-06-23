@@ -1,1 +1,89 @@
 @import "tailwindcss";
+
+@theme {
+  /* Quantum-Dark Color Palette - Siphoned from Unitary-Core & OMEGA */
+  --color-void-950: #020617;
+  --color-void-900: #0f172a;
+  --color-neural-500: #6366f1;
+  --color-neural-400: #818cf8;
+  --color-dalek-red: #ef4444;
+  --color-dalek-gold: #f59e0b;
+
+  /* Typography - Optimized for Epistemic Debate Engine & Technical Specs */
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Custom Animations for Emergent Systems */
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px var(--color-neural-500)); }
+    50% { opacity: 0.7; filter: drop-shadow(0 0 8px var(--color-neural-400)); }
+  }
+
+  --animate-pulse-glow: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+
+  * {
+    @apply border-border;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-void-900) transparent;
+  }
+
+  body {
+    @apply bg-void-950 text-foreground font-sans antialiased;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.1) 0px, transparent 50%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glassmorphism - Siphoned from ClaudIOS & Huxley-Singularity */
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl;
+  }
+
+  .cyber-button {
+    @apply relative px-6 py-2 font-mono uppercase tracking-widest transition-all duration-300
+           bg-transparent border border-neural-500 text-neural-400
+           hover:bg-neural-500 hover:text-white hover:shadow-[0_0_15px_rgba(99,102,241,0.5)];
+  }
+
+  /* Agent Status Indicators */
+  .status-active {
+    @apply w-2 h-2 rounded-full bg-green-500 animate-pulse;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-neural-400 to-dalek-gold;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
