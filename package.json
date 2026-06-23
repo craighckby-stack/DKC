@@ -1,32 +1,29 @@
 {
   "name": "darlek-cann-orchestrator",
   "version": "3.0.0",
-  "description": "Supreme Code Evolution Controller - Agent Orchestra & Sovereign Kernel",
+  "description": "Supreme Code Evolution Controller",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build",
-    "build:server": "esbuild server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/server.js",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/server.js",
     "start": "node dist/server.js",
-    "lint": "tsc --noEmit && eslint . --ext .ts,.tsx",
+    "lint": "tsc --noEmit && eslint .",
     "test": "vitest run",
-    "clean": "rm -rf dist .turbo .next",
-    "analyze": "source-map-explorer dist/assets/*.js",
+    "clean": "rm -rf dist",
     "evolve": "tsx scripts/evolution-engine.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
+    "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
+    "pino": "^9.6.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "dotenv": "^17.2.3",
-    "pino": "^9.6.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
