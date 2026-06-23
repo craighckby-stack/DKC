@@ -1,0 +1,1 @@
+export const TemporalDiagnostics = () => <div className="fixed bottom-4 right-4 text-[8px] font-mono text-slate-700">SYSTEM_CORE_V3.0_STABLE</div>;
