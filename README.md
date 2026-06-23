@@ -52,3 +52,4 @@ interface CognitivePayload {
 - **Security**: Hardened via `sovereign-kernel` memory isolation.
 
 
+
