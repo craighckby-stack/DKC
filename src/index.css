@@ -54,3 +54,4 @@
   .scanline-overlay { @apply fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px]; }
   .data-stream-bg { background: linear-gradient(45deg, rgba(99, 102, 241, 0.03) 25%, transparent 25%, transparent 50%, rgba(99, 102, 241, 0.03) 50%, rgba(99, 102, 241, 0.03) 75%, transparent 75%, transparent); background-size: 40px 40px; }
 }
+
