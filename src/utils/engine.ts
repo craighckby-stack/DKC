@@ -77,3 +77,4 @@ export function getBasicMoves(board: Board, from: Coord): Coord[] {
   }
   return moves;
 }
+
