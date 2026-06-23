@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* OMEGA-Core Color Palette */
+  /* OMEGA-Core Color Palette - Unified for Sovereign/SN Architectures */
   --color-void-950: #020617;
   --color-void-900: #0f172a;
   --color-neural-500: #6366f1;
@@ -10,86 +10,47 @@
   --color-dalek-gold: #f59e0b;
   --color-quantum-cyan: #22d3ee;
   --color-data-green: #22c55e;
+  --color-error-red: #991b1b;
 
   /* Typography */
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --font-sans: "Inter", system-ui, sans-serif;
 
   /* Emergent System Animations */
-  @keyframes pulse-glow {
-    0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px var(--color-neural-500)); }
-    50% { opacity: 0.7; filter: drop-shadow(0 0 8px var(--color-neural-400)); }
-  }
-  @keyframes scan-line {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100vh); }
-  }
-  @keyframes rotate-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
+  @keyframes pulse-glow { 0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px var(--color-neural-500)); } 50% { opacity: 0.7; filter: drop-shadow(0 0 8px var(--color-neural-400)); } }
+  @keyframes scan-line { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+  @keyframes rotate-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes data-stream { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
 
   --animate-pulse-glow: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-scan: scan-line 8s linear infinite;
   --animate-spin-slow: rotate-slow 20s linear infinite;
+  --animate-stream: data-stream 20s linear infinite;
 }
 
 @layer base {
-  :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-  }
-
-  * {
-    @apply border-border box-border;
-  }
-
-  body {
-    @apply bg-void-950 text-foreground font-sans antialiased selection:bg-neural-500/30;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.1) 0px, transparent 50%);
-    min-height: 100vh;
-  }
+  :root { --background: 222.2 84% 4.9%; --foreground: 210 40% 98%; --border: 217.2 32.6% 17.5%; }
+  * { @apply border-border box-border; }
+  body { @apply bg-void-950 text-foreground font-sans antialiased selection:bg-neural-500/30; min-height: 100vh; }
 }
 
 @layer components {
-  .glass-panel {
-    @apply bg-void-900/60 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-xl;
-  }
+  .glass-panel { @apply bg-void-900/60 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-xl; }
+  .glass-panel-deep { @apply bg-void-950/80 border-white/5 shadow-inner; }
+  
+  .cyber-button { @apply relative px-6 py-2 font-mono uppercase tracking-widest transition-all duration-300 bg-transparent border border-neural-500 text-neural-400 hover:bg-neural-500 hover:text-white hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]; }
+  
+  .agent-node { @apply relative flex items-center gap-3 p-4 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 transition-all duration-500; }
+  .agent-node-active { @apply border-neural-500/50 shadow-[0_0_15px_rgba(99,102,241,0.1)]; }
 
-  .cyber-button {
-    @apply relative px-6 py-2 font-mono uppercase tracking-widest transition-all duration-300
-           bg-transparent border border-neural-500 text-neural-400
-           hover:bg-neural-500 hover:text-white hover:shadow-[0_0_20px_rgba(99,102,241,0.3)];
-  }
-
-  .agent-node {
-    @apply relative flex items-center gap-3 p-4 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 transition-colors;
-  }
-
-  .status-indicator {
-    @apply w-2.5 h-2.5 rounded-full shadow-[0_0_10px_currentColor] animate-pulse;
-  }
-
-  .quantum-grid {
-    background-image: linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
+  .status-indicator { @apply w-2.5 h-2.5 rounded-full shadow-[0_0_10px_currentColor] animate-pulse; }
+  
+  .quantum-grid { background-image: linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px); background-size: 40px 40px; }
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-neural-400 to-quantum-cyan;
-  }
-
-  .scrollbar-custom {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-neural-500) var(--color-void-900);
-  }
-
-  .scanline-overlay {
-    @apply fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px];
-  }
+  .text-gradient { @apply bg-clip-text text-transparent bg-gradient-to-r from-neural-400 to-quantum-cyan; }
+  .scrollbar-custom { scrollbar-width: thin; scrollbar-color: var(--color-neural-500) var(--color-void-900); }
+  .scanline-overlay { @apply fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px]; }
+  .data-stream-bg { background: linear-gradient(45deg, rgba(99, 102, 241, 0.03) 25%, transparent 25%, transparent 50%, rgba(99, 102, 241, 0.03) 50%, rgba(99, 102, 241, 0.03) 75%, transparent 75%, transparent); background-size: 40px 40px; }
 }
