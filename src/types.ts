@@ -108,3 +108,4 @@ export type SystemEvent =
   | { type: 'AGENT_THOUGHT'; payload: { agentId: string; thought: string } }
   | { type: 'DEBATE_VERDICT'; payload: { topic: string; winner: Faction } };
 
+
