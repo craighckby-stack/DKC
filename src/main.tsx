@@ -1,16 +1,7 @@
 import React, { StrictMode, Suspense, lazy } from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import App from './App.tsx';
+import App from './App';
 import './index.css';
-
-/**
- * DARLEK CANN v3.0 - Entry Point Orchestrator
- * Architecture: Sovereign-Kernel / OMEGA-Core
- * Integration: Unitary-Core / SN-OMEGA Telemetry
- * 
- * Status: Production-Ready
- * Lifecycle: Idle-Callback-Optimized
- */
 
 const ErrorBoundary = lazy(() => import('./components/system/ErrorBoundary'));
 
@@ -22,16 +13,11 @@ const LoadingFallback = () => (
 
 let root: Root | null = null;
 
-const initializeSystem = (): void => {
+const bootstrap = (): void => {
   const rootElement = document.getElementById('root');
-  if (!rootElement) {
-    console.error('CRITICAL_FAILURE: Root DOM node not found.');
-    return;
-  }
+  if (!rootElement) return;
 
-  if (!root) {
-    root = createRoot(rootElement);
-  }
+  if (!root) root = createRoot(rootElement);
 
   root.render(
     <StrictMode>
@@ -44,19 +30,7 @@ const initializeSystem = (): void => {
   );
 };
 
-const bootstrap = () => {
-  try {
-    initializeSystem();
-    console.info('DARLEK_CANN_SYSTEM: OMEGA_CORE_ONLINE. Telemetry active.');
-  } catch (err) {
-    console.error('BOOTSTRAP_FAILURE: OMEGA_CORE_CRASHED', err);
-  }
-};
-
 if (typeof window !== 'undefined') {
-  if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(bootstrap);
-  } else {
-    setTimeout(bootstrap, 1);
-  }
+  const idle = (window as Window & { requestIdleCallback?: (cb: IdleRequestCallback) => number }).requestIdleCallback;
+  idle ? idle(bootstrap) : setTimeout(bootstrap, 1);
 }
