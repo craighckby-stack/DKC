@@ -1,7 +1,7 @@
 # --- DARLEK CANN: SUPREME CODE EVOLUTION CONTROLLER ---
-# --- ARCHITECTURAL EXCLUSION SCHEMA v3.0 ---
+# --- ARCHITECTURAL EXCLUSION SCHEMA v3.0 (STRICT) ---
 
-# 1. Dependency & Runtime Environment
+# 1. Runtime & Dependency Bloat
 node_modules/
 .pnp/
 .pnp.js
@@ -93,3 +93,10 @@ venv/
 .memory_dump/
 .swarm_logs/
 .quantum_cache/
+
+# 9. Deployment & Infrastructure
+.terraform/
+*.tfstate
+*.tfstate.backup
+.serverless/
+.aws-sam/
