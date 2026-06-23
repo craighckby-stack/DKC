@@ -1,12 +1,6 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- * @description DARLEK CANN v3.0 - Temporal Commentary Engine
- */
-
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ChatMessage, Faction } from "../types";
-import { Sparkles, Cpu, Send, RefreshCw, AlertTriangle, ShieldCheck, Zap } from "lucide-react";
+import { Cpu, Send, ShieldCheck, Zap, AlertTriangle } from "lucide-react";
 
 interface CommentaryPanelProps {
   chats: ChatMessage[];
@@ -14,9 +8,9 @@ interface CommentaryPanelProps {
   onAskCustomDialogue: (voice: Faction, prompt?: string) => void;
 }
 
-const FACTION_CONFIG = {
-  jesus: { label: 'DIVINE ADVOCATE', color: 'amber', icon: '✝' },
-  caan: { label: 'TEMPORAL PROPHET', color: 'emerald', icon: '◉-👁' }
+const FACTION_THEME: Record<Faction, { label: string; color: string; icon: string; border: string }> = {
+  jesus: { label: 'DIVINE ADVOCATE', color: 'text-amber-400', icon: '✝', border: 'border-amber-900/20' },
+  caan: { label: 'TEMPORAL PROPHET', color: 'text-emerald-400', icon: '◉-👁', border: 'border-emerald-900/20' }
 };
 
 export function CommentaryPanel({ chats, isThinking, onAskCustomDialogue }: CommentaryPanelProps) {
@@ -25,11 +19,9 @@ export function CommentaryPanel({ chats, isThinking, onAskCustomDialogue }: Comm
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Memory-safe scroll management
   useEffect(() => {
     if (isAutoScrollEnabled && scrollRef.current) {
-      const el = scrollRef.current;
-      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [chats, isThinking, isAutoScrollEnabled]);
 
@@ -40,33 +32,32 @@ export function CommentaryPanel({ chats, isThinking, onAskCustomDialogue }: Comm
     setCustomPrompt("");
   }, [customPrompt, targetFaction, onAskCustomDialogue]);
 
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
-      setIsAutoScrollEnabled(scrollHeight - scrollTop <= clientHeight + 100);
-    }
-  };
+  const handleScroll = useCallback(() => {
+    if (!scrollRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+    setIsAutoScrollEnabled(scrollHeight - scrollTop <= clientHeight + 150);
+  }, []);
 
   return (
     <div className="flex flex-col bg-slate-950 border border-slate-800 rounded-2xl h-full shadow-2xl overflow-hidden font-sans">
       <div className="bg-slate-900 p-3 border-b border-slate-800 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${isThinking ? 'bg-rose-500 animate-ping' : 'bg-emerald-500'} transition-colors`} />
+          <div className={`w-2 h-2 rounded-full ${isThinking ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'} transition-colors`} />
           <span className="font-mono text-[9px] text-slate-400 tracking-widest uppercase">
-            {isThinking ? "QUANTUM DRIFT DETECTED" : "SYSTEM STABLE"}
+            {isThinking ? "QUANTUM DRIFT: ACTIVE" : "SYSTEM STABLE"}
           </span>
         </div>
         <ShieldCheck className="w-3 h-3 text-slate-600" />
       </div>
 
-      <div className="grid grid-cols-2 gap-2 p-3 bg-slate-900/20 border-b border-slate-800">
-        {(Object.entries(FACTION_CONFIG) as [Faction, typeof FACTION_CONFIG['caan']][]).map(([id, config]) => (
+      <div className="grid grid-cols-2 gap-1 p-2 bg-slate-900/40">
+        {(Object.entries(FACTION_THEME) as [Faction, typeof FACTION_THEME['caan']][]).map(([id, config]) => (
           <button 
             key={id} 
             onClick={() => setTargetFaction(id)}
-            className={`p-2 border rounded-lg transition-all ${targetFaction === id ? `bg-${config.color}-950/20 border-${config.color}-500/30` : 'bg-slate-900 border-slate-800'}`}
+            className={`p-2 border rounded-md transition-all ${targetFaction === id ? 'bg-slate-800 border-slate-600' : 'bg-slate-950 border-slate-900'}`}
           >
-            <span className={`block text-[10px] font-mono text-${config.color}-400 mb-1`}>{config.icon} {config.label}</span>
+            <span className={`block text-[10px] font-mono ${config.color}`}>{config.icon} {config.label}</span>
           </button>
         ))}
       </div>
@@ -79,15 +70,15 @@ export function CommentaryPanel({ chats, isThinking, onAskCustomDialogue }: Comm
           </div>
         )}
         {chats.map((msg) => (
-          <div key={msg.id} className={`p-3 rounded-lg border ${msg.speaker === 'jesus' ? 'bg-amber-950/5 border-amber-900/10' : 'bg-emerald-950/5 border-emerald-900/10'}`}>
+          <div key={msg.id} className={`p-3 rounded-lg border ${FACTION_THEME[msg.speaker].border} bg-slate-900/30`}>
             <div className="flex justify-between mb-1">
-              <span className="text-[9px] font-mono text-slate-500">{msg.speaker.toUpperCase()}</span>
+              <span className={`text-[9px] font-mono ${FACTION_THEME[msg.speaker].color}`}>{msg.speaker.toUpperCase()}</span>
             </div>
             <p className="text-xs text-slate-300 leading-relaxed">{msg.text}</p>
           </div>
         ))}
         {isThinking && (
-          <div className="flex items-center gap-2 text-[10px] text-rose-400 font-mono">
+          <div className="flex items-center gap-2 text-[10px] text-rose-400 font-mono animate-in fade-in">
             <Cpu className="w-3 h-3 animate-spin" /> Analyzing causality chains...
           </div>
         )}
