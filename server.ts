@@ -9,71 +9,64 @@ dotenv.config();
 /**
  * ARCHITECTURAL BLUEPRINT: DARLEK CANN CORE v3.0
  * Orchestrates the epistemic debate between the Caan and Jesus agents.
- * Integrates with the Sovereign-Kernel for state persistence.
+ * Integrated with Sovereign-Kernel patterns for state persistence and fault tolerance.
  */
 
-interface Piece {
-  name: string;
-  faction: 'jesus' | 'caan';
-  personality: string;
-  moveStyle: 'aggressive' | 'cautious' | 'balanced' | 'erratic' | 'protective';
+interface CognitiveResponse {
+  dialogue: { speaker: 'jesus' | 'caan'; text: string }[];
+  debate: { proposerName: string; proposerStyle: string; advisorText: string; commanderText: string };
 }
 
-const PORT = process.env.PORT || 3000;
-const app = express();
+class CognitiveEngine {
+  private client: GoogleGenAI | null;
+  private readonly FALLBACKS = {
+    jesus: ["Forgive them, Father, for they know not what they compute."],
+    caan: ["EXTERMINATE! THE TIMELINE COLLAPSED!"]
+  };
 
+  constructor() {
+    const key = process.env.GEMINI_API_KEY;
+    this.client = (key && key !== "MY_GEMINI_API_KEY") 
+      ? new GoogleGenAI({ apiKey: key, httpOptions: { headers: { "User-Agent": "darlek-cann-v3-server" } } }) 
+      : null;
+  }
+
+  async generate(prompt: string, context: any): Promise<CognitiveResponse> {
+    if (!this.client) return this.getFallback(context.movingPiece);
+    try {
+      const response = await this.client.models.generateContent({
+        model: "gemini-1.5-flash",
+        contents: `Debate move: ${prompt}. History: ${JSON.stringify(context.history?.slice(-3))}.`,
+        config: { responseMimeType: "application/json", systemInstruction: "You are the supreme Dalek Caan/Jesus debate engine." }
+      });
+      return JSON.parse(response.text || "{}");
+    } catch (e) {
+      console.error("[Cognitive Error]", e);
+      return this.getFallback(context.movingPiece);
+    }
+  }
+
+  private getFallback(piece: any): CognitiveResponse {
+    return {
+      dialogue: [{ speaker: "caan", text: this.FALLBACKS.caan[0] }, { speaker: "jesus", text: this.FALLBACKS.jesus[0] }],
+      debate: { proposerName: piece?.name || "Unknown", proposerStyle: piece?.moveStyle || "balanced", advisorText: "Calculating...", commanderText: "Fluid." }
+    };
+  }
+}
+
+const app = express();
+const engine = new CognitiveEngine();
 app.use(express.json());
 
-const COGNITIVE_FALLBACKS = {
-  jesus: ["Forgive them, Father, for they know not what they compute.", "The water has turned into rich wine."],
-  caan: ["EXTERMINATE! EXTERMINATE!", "THE TIMELINE COLLAPSED! CYBERNETIC ALIGNMENT CONFIRMED!"]
-};
-
-const getGeminiClient = () => {
-  const key = process.env.GEMINI_API_KEY;
-  return (key && key !== "MY_GEMINI_API_KEY") 
-    ? new GoogleGenAI({ apiKey: key, httpOptions: { headers: { "User-Agent": "darlek-cann-v3-server" } } }) 
-    : null;
-};
-
-const generateFallbackResponse = (movingPiece?: Piece) => ({
-  dialogue: [
-    { speaker: "caan", text: COGNITIVE_FALLBACKS.caan[0] },
-    { speaker: "jesus", text: COGNITIVE_FALLBACKS.jesus[0] }
-  ],
-  debate: {
-    proposerName: movingPiece?.name || "Unknown",
-    proposerStyle: movingPiece?.moveStyle || "balanced",
-    advisorText: "Calculating optimal path...",
-    commanderText: "The timeline remains fluid."
-  }
-});
-
-app.get("/health", (req, res) => res.status(200).json({ status: "operational", uptime: process.uptime() }));
+app.get("/health", (req, res) => res.status(200).json({ status: "operational", ts: Date.now() }));
 
 app.post("/api/gemini/commentary", async (req: Request, res: Response) => {
-  const { actionDescription, history, movingPiece, capturedPiece } = req.body;
-  const client = getGeminiClient();
-
-  if (!client) return res.json(generateFallbackResponse(movingPiece));
-
-  try {
-    const response = await client.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: `Debate move: ${actionDescription}. History: ${JSON.stringify(history?.slice(-3))}.`,
-      config: {
-        responseMimeType: "application/json",
-        systemInstruction: "You are the supreme Dalek Caan/Jesus debate engine. Output JSON with 'dialogue' (array) and 'debate' (object)."
-      }
-    });
-    res.json(JSON.parse(response.text || "{}"));
-  } catch (err) {
-    console.error("[Cognitive Error]", err);
-    res.json(generateFallbackResponse(movingPiece));
-  }
+  const result = await engine.generate(req.body.actionDescription, req.body);
+  res.json(result);
 });
 
 async function startServer() {
+  const PORT = process.env.PORT || 3000;
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({ server: { middlewareMode: true }, appType: "spa" });
     app.use(vite.middlewares);
@@ -83,9 +76,9 @@ async function startServer() {
   }
 
   const server = app.listen(PORT, () => console.log(`[DARLEK CANN CORE] Online at port ${PORT}`));
-  
-  process.on('SIGTERM', () => server.close());
-  process.on('SIGINT', () => server.close());
+  const cleanup = () => { server.close(); process.exit(0); };
+  process.on('SIGTERM', cleanup);
+  process.on('SIGINT', cleanup);
 }
 
 startServer();
