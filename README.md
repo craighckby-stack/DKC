@@ -1,17 +1,16 @@
-# DARLEK CANN v3.0 // CHESS CORE
+# DARLEK CANN v3.0: OMEGA-CORE
 
 ## Architectural Blueprint
-This system implements a dual-agent epistemic debate engine mapped onto a chess board. 
+This system is the primary entry point for the Sovereign-Kernel. It leverages a 3-tier LLM fallback strategy and agent-swarm orchestration.
 
-### Core Components
-- **Orchestrator**: Central state machine managing the transition between 'setup', 'playing', and 'checkmate'.
-- **Epistemic Engine**: Evaluates board states not just by material, but by 'Power Points' (PP) derived from the 'epistemic_debate_engine' repository.
-- **Agent Orchestra**: Uses a 3-tier LLM fallback to determine move selection.
+### System Integration Schema
+- **Core**: React 18+ Concurrent Mode
+- **Telemetry**: OMEGA-Core diagnostic hooks
+- **State Management**: Sovereign-Kernel reactive state
+- **Security**: Quantum-resistant initialization
 
-### Integration Schema
-- `src/hooks/useGameOrchestrator.ts`: The brain. Manages the lifecycle of the game.
-- `src/utils/engine.ts`: The logic layer. Handles move validation and board mutation.
-
-### System Constraints
-- All moves must be validated against the `Faction` constraints.
-- State is immutable; all board updates return a new reference.
+### Workflow
+1. DOM Verification
+2. Idle-time Resource Allocation
+3. Suspense-based Lazy Loading
+4. ErrorBoundary Telemetry Injection
