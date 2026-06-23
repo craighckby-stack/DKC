@@ -1,11 +1,11 @@
 export interface QuantumState {
   superposition: boolean;
-  entanglementId: string | null;
-  probabilityAmplitude: number;
+  collapseProbability: number;
+  entangledWith: string[];
 }
 
-export interface AgentOrchestrationConfig {
-  fallbackChain: string[];
-  maxConcurrency: number;
-  priorityQueue: boolean;
-}
+export const INITIAL_QUANTUM_STATE: QuantumState = {
+  superposition: false,
+  collapseProbability: 0.05,
+  entangledWith: []
+};
