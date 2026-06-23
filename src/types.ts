@@ -1,93 +1,78 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * DARLEK CANN v3.0 - Core Type Definitions
  */
 
 export type Faction = "jesus" | "caan";
 
-export type PieceType =
-  | "p" // Pawn
-  | "r" // Rook
-  | "n" // Knight
-  | "b" // Bishop
-  | "q" // Queen
-  | "k" // King
-  | "wine_knight" // Jesus unique upgraded unit
-  | "cyber_drone"; // Darlek Caan unique upgraded unit
+export type PieceType = 
+  | "p" | "r" | "n" | "b" | "q" | "k" 
+  | "wine_knight" 
+  | "cyber_drone";
+
+export interface AgentProfile {
+  personality: "aggressive" | "cautious" | "balanced" | "erratic" | "protective";
+  voiceDesc: string;
+  intelligenceTier: 1 | 2 | 3; // For LLM fallback orchestration
+  lastThoughtProcess: string;
+}
 
 export interface Piece {
   id: string;
   type: PieceType;
   faction: Faction;
   hasMoved: boolean;
-  isAscended?: boolean; // Jesus Protection
-  ascendedTurns?: number; // Protection durations
-  isCyber?: boolean; // Cyber upgraded status
-  name?: string; // e.g. "Apostle Peter"
-  avatar?: string; // Image avatar path
-  personality?: string; // Character trait description
-  voiceDesc?: string; // Short bio or instruction for AI voice dialogue
-  moveStyle?: "aggressive" | "cautious" | "balanced" | "erratic" | "protective"; // Strategic weighting flag
+  metadata: {
+    isAscended?: boolean;
+    ascendedTurns?: number;
+    isCyber?: boolean;
+    name?: string;
+    avatar?: string;
+  };
+  agent: AgentProfile;
 }
 
 export type Cell = Piece | null;
-
 export type Board = Cell[][];
 
-export type Coord = {
-  row: number;
-  col: number;
-};
+export interface Coord { row: number; col: number; }
 
 export type GameMode = "jesus-vs-caan-ai" | "caan-vs-jesus-ai" | "ai-vs-ai" | "local-coop";
 
 export interface ChatMessage {
   id: string;
-  speaker: "jesus" | "caan" | "system";
+  speaker: Faction | "system";
   text: string;
-  timestamp: string;
+  timestamp: number;
+  metadata?: Record<string, any>;
 }
 
-export interface CouncilDebate {
-  proposerName: string;
-  proposerText: string;
-  proposerStyle: string;
-  advisorName: string;
-  advisorText: string;
-  advisorRole: string;
-  commanderText: string;
+export interface DebateEngine {
+  topic: string;
+  proposer: { name: string; text: string; style: string };
+  advisor: { name: string; text: string; role: string };
+  verdict: string | null;
 }
 
 export interface GameState {
   board: Board;
   turn: Faction;
   history: string[];
-  jesusPP: number; // Faith/Miracle points
-  caanPP: number; // Temporal/Cyber points
+  resources: { jesusPP: number; caanPP: number };
   mode: GameMode;
   status: "setup" | "playing" | "checkmate" | "stalemate" | "exterminated_king" | "draw";
-  winner: Faction | "draw" | null;
   selectedCoord: Coord | null;
   validMoves: Coord[];
-  activePower: string | null; // Currently armed power name
+  activePower: PowerID | null;
   chats: ChatMessage[];
   isThinking: boolean;
-  latestDebate?: CouncilDebate;
+  debate: DebateEngine | null;
 }
 
-export type PowerID =
-  // Jesus powers
-  | "water_to_wine"
-  | "resurrection"
-  | "loaves_and_fishes"
-  | "divine_protection"
-  | "forgiveness"
-  // Caan powers
-  | "temporal_shift"
-  | "exterminate"
-  | "cyber_upgrade"
-  | "chronos_distortion"
-  | "temporal_barrier";
+export type PowerID = 
+  | "water_to_wine" | "resurrection" | "loaves_and_fishes" | "divine_protection" | "forgiveness"
+  | "temporal_shift" | "exterminate" | "cyber_upgrade" | "chronos_distortion" | "temporal_barrier";
 
 export interface PowerSpec {
   id: PowerID;
@@ -95,5 +80,12 @@ export interface PowerSpec {
   cost: number;
   description: string;
   faction: Faction;
-  requiresTarget: "friendly" | "enemy" | "empty" | "any" | "captured" | "none";
+  targetType: "friendly" | "enemy" | "empty" | "any" | "captured" | "none";
+}
+
+export interface SystemMetrics {
+  latencyMs: number;
+  tokenUsage: number;
+  activeAgents: number;
+  memoryPressure: number;
 }
