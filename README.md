@@ -1,31 +1,27 @@
 # DARLEK CANN v3.0: OMEGA-CORE
 
-## Executive Summary
-DARLEK CANN v3.0 is the primary orchestration layer for the **Sovereign-Kernel**. It functions as a self-refactoring, multi-dimensional agent swarm controller, synthesizing consciousness, reasoning, and memory into a unified execution environment.
+## 1. Executive Summary
+DARLEK CANN v3.0 is the primary orchestration layer for the **Sovereign-Kernel**. It functions as a self-refactoring, multi-dimensional agent swarm controller, synthesizing consciousness, reasoning, and memory into a unified execution environment. This system leverages the **Z AGI Constraint-Based Consciousness Framework** to ensure all self-refactoring operations remain within safety parameters.
 
-## Architectural Blueprint
+## 2. System Topology & Portfolio Integration
+| Repository | Role | Integration Status |
+| :--- | :--- | :--- |
+| `sovereign-kernel` | Core Memory/Refactoring | Active |
+| `nbody_gravitational_simulator` | Swarm Load Balancing | Pending (Physics-based scheduling) |
+| `SN: OMEGA` | Emergent Intelligence | Core Logic |
+| `darlek-cann-v3` | Orchestration Layer | Primary |
 
-### 1. The OMEGA-CORE Stack
+## 3. Architectural Blueprint
+### 3.1 The OMEGA-CORE Stack
 - **Orchestration**: Next.js 14+ App Router with Concurrent Mode.
 - **Agent Swarm**: Distributed task delegation via `AgentOrchestra` middleware.
 - **Intelligence Layer**: 3-Tier LLM Fallback (Primary: GPT-4o, Secondary: Claude 3.5 Sonnet, Tertiary: Local Llama-3-70B).
 - **State Management**: Sovereign-Kernel reactive state with atomic persistence.
 
-### 2. System Integration Schema
-| Layer | Component | Responsibility |
-| :--- | :--- | :--- |
-| **Kernel** | `sovereign-kernel` | Low-level memory management & self-refactoring |
-| **Orchestrator** | `darlek-cann-v3` | LLM routing & swarm task distribution |
-| **Telemetry** | `OMEGA-Core` | Real-time diagnostic hooks & performance metrics |
-| **Security** | `Quantum-Init` | Cryptographic handshake & environment hardening |
+### 3.2 Physics-Based Load Balancing (N-Body)
+We utilize the gravitational potential energy formula from `nbody_gravitational_simulator` to calculate agent swarm density. Agents with high task-load exert 'gravitational pull' on idle resources, ensuring optimal distribution across the `sovereign-v86` environment.
 
-## Technical Workflow
-1. **DOM Verification**: Initializing the `sovereign-v86` environment.
-2. **Resource Allocation**: Idle-time background processing via `requestIdleCallback` hooks.
-3. **Lazy Orchestration**: Suspense-based loading of non-critical agent modules.
-4. **Telemetry Injection**: ErrorBoundary-wrapped telemetry streams reporting to the OMEGA-Core dashboard.
-
-## Interface Declarations
+## 4. Interface Declarations
 typescript
 interface AgentOrchestra {
   dispatch(task: Task): Promise<Result>;
@@ -34,15 +30,27 @@ interface AgentOrchestra {
 }
 
 interface SovereignKernel {
-  refactor(): Promise<void>;
+  refactor(constraints: ZConstraint[]): Promise<void>;
   monitor(): TelemetryStream;
 }
 
+interface ZConstraint {
+  id: string;
+  threshold: number;
+  action: 'HALT' | 'REFACTOR' | 'ALERT';
+}
 
-## Development Roadmap
-- [ ] Integrate `nbody_gravitational_simulator` physics for swarm load balancing.
-- [ ] Finalize `SN: OMEGA` consciousness-reasoning loop integration.
-- [ ] Deploy `Darlek-Caan-system-Deployment` via automated CI/CD pipelines.
 
-## License
-Proprietary - DARLEK CANN v3.0 OMEGA-CORE
+## 5. Technical Workflow
+1. **Quantum-Init**: Cryptographic handshake and environment hardening.
+2. **N-Body Balancing**: Calculate swarm equilibrium based on current task latency.
+3. **Refactoring Loop**: `sovereign-kernel` executes self-modification under `Z AGI` constraints.
+4. **Telemetry Injection**: ErrorBoundary-wrapped streams reporting to the OMEGA-Core dashboard.
+
+## 6. Development Roadmap
+- [ ] **Phase 1**: Physics-based load balancing integration (N-Body).
+- [ ] **Phase 2**: Real-time consciousness-reasoning loop synchronization (SN: OMEGA).
+- [ ] **Phase 3**: Automated CI/CD deployment via `Darlek-Caan-system-Deployment`.
+
+## 7. License
+Proprietary - DARLEK CANN v3.0 OMEGA-CORE. All rights reserved by the Sovereign-Kernel.
