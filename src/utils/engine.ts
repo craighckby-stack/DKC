@@ -1,42 +1,24 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- * @description DARLEK CANN v3.0 Engine - Quantum Chess Logic Core
- */
-
-import { Board, Cell, Coord, Faction, Piece, PieceType } from "../types";
+import { Board, Coord, Faction, Piece, PieceType } from "../types";
 
 export const PIECE_VALUES: Record<PieceType, number> = {
   p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000, wine_knight: 500, cyber_drone: 480,
 };
 
-const AGENT_REGISTRY: Record<string, any> = {
-  caan: {
-    '0,0': { name: "Dalek Sec", personality: "Cold, calculated black commander.", moveStyle: "cautious" },
-    '0,4': { name: "Black Dalek Caan", personality: "Quantum Prophet of Skaro.", moveStyle: "balanced" },
-    default: { name: "Dalek Drone", personality: "Standard combat drone.", moveStyle: "aggressive" }
-  },
-  jesus: {
-    '7,4': { name: "Jesus Christ", personality: "The Savior and Prince of Peace.", moveStyle: "protective" },
-    default: { name: "Apostle", personality: "Devoted disciple of Christ.", moveStyle: "balanced" }
-  }
+const REGISTRY: Record<string, Record<string, any>> = {
+  caan: { '0,0': { name: "Dalek Sec", moveStyle: "cautious" }, '0,4': { name: "Dalek Caan", moveStyle: "balanced" }, default: { name: "Dalek Drone", moveStyle: "aggressive" } },
+  jesus: { '7,4': { name: "Jesus Christ", moveStyle: "protective" }, default: { name: "Apostle", moveStyle: "balanced" } }
 };
 
 export const isWithinBoard = (r: number, c: number): boolean => r >= 0 && r < 8 && c >= 0 && c < 8;
 
-export const cloneBoard = (board: Board): Board => board.map(row => row.map(cell => (cell ? { ...cell } : null)));
-
-export function initializePieceAgent(piece: Piece, row: number, col: number): Piece {
-  const factionConfig = AGENT_REGISTRY[piece.faction];
-  const specific = factionConfig[`${row},${col}`] || factionConfig.default;
-  return { ...piece, ...specific };
-}
+export const cloneBoard = (board: Board): Board => board.map(row => row.map(cell => cell ? { ...cell } : null));
 
 export function createInitialBoard(): Board {
   const board: Board = Array.from({ length: 8 }, () => Array(8).fill(null));
   const setup = (row: number, faction: Faction, types: PieceType[]) => {
     types.forEach((type, col) => {
-      board[row][col] = initializePieceAgent({ id: `${faction}_${type}_${col}`, type, faction, hasMoved: false }, row, col);
+      const config = REGISTRY[faction][`${row},${col}`] || REGISTRY[faction].default;
+      board[row][col] = { id: `${faction}_${type}_${col}`, type, faction, hasMoved: false, ...config };
     });
   };
   setup(0, "caan", ["r", "n", "b", "q", "k", "b", "n", "r"]);
@@ -49,11 +31,10 @@ export function createInitialBoard(): Board {
 export function getBasicMoves(board: Board, from: Coord): Coord[] {
   const piece = board[from.row][from.col];
   if (!piece) return [];
-  
   const moves: Coord[] = [];
   const { type, faction } = piece;
 
-  const validateAndPush = (r: number, c: number): boolean => {
+  const add = (r: number, c: number): boolean => {
     if (!isWithinBoard(r, c)) return false;
     const target = board[r][c];
     if (!target || target.faction !== faction) moves.push({ row: r, col: c });
@@ -61,33 +42,24 @@ export function getBasicMoves(board: Board, from: Coord): Coord[] {
   };
 
   if (type === "p") {
-    const dir = faction === "jesus" ? -1 : 1;
-    if (isWithinBoard(from.row + dir, from.col) && !board[from.row + dir][from.col]) {
-      moves.push({ row: from.row + dir, col: from.col });
-      if (!piece.hasMoved && isWithinBoard(from.row + 2 * dir, from.col) && !board[from.row + 2 * dir][from.col]) 
-        moves.push({ row: from.row + 2 * dir, col: from.col });
+    const d = faction === "jesus" ? -1 : 1;
+    if (isWithinBoard(from.row + d, from.col) && !board[from.row + d][from.col]) {
+      moves.push({ row: from.row + d, col: from.col });
+      if (!piece.hasMoved && !board[from.row + 2 * d][from.col]) moves.push({ row: from.row + 2 * d, col: from.col });
     }
     [from.col - 1, from.col + 1].forEach(c => {
-      const target = board[from.row + dir]?.[c];
-      if (target && target.faction !== faction) moves.push({ row: from.row + dir, col: c });
+      const t = board[from.row + d]?.[c];
+      if (t && t.faction !== faction) moves.push({ row: from.row + d, col: c });
     });
-  }
-
-  if (["n", "wine_knight", "cyber_drone"].includes(type)) {
-    const offsets = [{r:-2,c:-1},{r:-2,c:1},{r:-1,c:-2},{r:-1,c:2},{r:1,c:-2},{r:1,c:2},{r:2,c:-1},{r:2,c:1}];
-    offsets.forEach(o => validateAndPush(from.row + o.r, from.col + o.c));
-    if (type === "wine_knight") [{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}].forEach(o => validateAndPush(from.row + o.r, from.col + o.c));
-  }
-
-  const sliding = (dirs: {r: number, c: number}[]) => {
+  } else if (["n", "wine_knight", "cyber_drone"].includes(type)) {
+    [{r:-2,c:-1},{r:-2,c:1},{r:-1,c:-2},{r:-1,c:2},{r:1,c:-2},{r:1,c:2},{r:2,c:-1},{r:2,c:1}].forEach(o => add(from.row + o.r, from.col + o.c));
+    if (type === "wine_knight") [{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}].forEach(o => add(from.row + o.r, from.col + o.c));
+  } else {
+    const dirs = [...(type !== "r" ? [{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}] : []), ...(type !== "b" ? [{r:-1,c:0},{r:1,c:0},{r:0,c:-1},{r:0,c:1}] : [])];
     dirs.forEach(d => {
       let r = from.row + d.r, c = from.col + d.c;
-      while (isWithinBoard(r, c) && validateAndPush(r, c) && !board[r][c]) { r += d.r; c += d.c; }
+      while (add(r, c) && !board[r][c]) { r += d.r; c += d.c; }
     });
-  };
-
-  if (type === "b" || type === "q") sliding([{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}]);
-  if (type === "r" || type === "q") sliding([{r:-1,c:0},{r:1,c:0},{r:0,c:-1},{r:0,c:1}]);
-
+  }
   return moves;
 }
