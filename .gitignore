@@ -31,6 +31,8 @@ storybook-static/
 *.vault
 *.credentials
 *.secret
+*.gpg
+*.asc
 
 # 4. Simulation & AI Model Artifacts (Siphoned from OMEGA/Unitary-Core)
 # Prevents large-scale binary bloat from AGI training/simulations
@@ -48,6 +50,7 @@ results/analysis/
 *.safetensors
 *.h5
 *.ckpt
+*.pb
 
 # 5. Logs & Temporary Diagnostics
 *.log
@@ -60,6 +63,7 @@ logs/
 cache/
 .eslintcache
 .stylelintcache
+.jest-cache
 
 # 6. OS & IDE Configuration
 .DS_Store
@@ -80,8 +84,12 @@ venv/
 .pytest_cache/
 .tox/
 .ipynb_checkpoints/
+.python-version
 
-# 8. Project-Specific Overrides
-# Reserved for DARLEK CANN self-refactoring logs
+# 8. Project-Specific Overrides (DARLEK CANN v3.0)
+# Reserved for agent-swarm memory dumps and self-refactoring logs
 .evolution_history/
 .agent_state/
+.memory_dump/
+.swarm_logs/
+.quantum_cache/
