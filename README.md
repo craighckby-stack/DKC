@@ -1,9 +1,12 @@
-# DARLEK CANN Orchestrator
+# DARLEK CANN v3.0: Epistemic Debate Engine
 
-## Architectural Blueprint
-- **Sovereign Kernel**: Core logic for agent orchestration.
-- **Unitary Core**: Quantum-ready data processing layer.
-- **Evolution Engine**: Self-refactoring module for system longevity.
+## Architecture
+- **Core**: Express/Vite Hybrid.
+- **Cognitive Layer**: Gemini 1.5 Flash integration with fallback state machine.
+- **Integration**: Designed to interface with `Darlek-Caan-Chess` and `epistemic_debate_engine`.
 
-## Integration
-This system consumes specifications from `darlek-caan-build-instructions.md` and maintains state consistency across the `SN: OMEGA` architecture.
+## Workflow
+1. Client sends move data.
+2. Server validates via `Cognitive Core`.
+3. If API is unreachable, `generateFallbackResponse` triggers.
+4. Response is returned as structured JSON for UI rendering.
