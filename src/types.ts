@@ -1,20 +1,36 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * DARLEK CANN v3.0 - Evolved Core Type Definitions
+ * DARLEK CANN v3.0 - Unified System Architecture Definitions
  */
 
-export type Faction = 'jesus' | 'caan';
+// --- Core Dimensional Types ---
+export type Vector3D = { x: number; y: number; z: number };
+export type Coord = { row: number; col: number };
 
+// --- Faction & Identity ---
+export type Faction = 'jesus' | 'caan';
 export type PieceType = 'p' | 'r' | 'n' | 'b' | 'q' | 'k' | 'wine_knight' | 'cyber_drone';
 
-export interface Vector { x: number; y: number; z: number; }
-
+// --- Agent Orchestra & Quantum State ---
 export interface AgentState {
+  id: string;
   personality: 'aggressive' | 'cautious' | 'balanced' | 'erratic' | 'protective';
   intelligenceTier: 1 | 2 | 3;
   quantumEntropy: number;
   lastThoughtProcess: string;
+  memoryBuffer: string[];
+  isLocked: boolean;
+}
+
+// --- Piece & Entity Definitions ---
+export interface PieceMetadata {
+  isAscended?: boolean;
+  ascendedTurns?: number;
+  isCyber?: boolean;
+  name?: string;
+  avatar?: string;
+  quantumSignature?: Vector3D;
 }
 
 export interface Piece {
@@ -23,21 +39,14 @@ export interface Piece {
   faction: Faction;
   hasMoved: boolean;
   position: Coord;
-  metadata: {
-    isAscended?: boolean;
-    ascendedTurns?: number;
-    isCyber?: boolean;
-    name?: string;
-    avatar?: string;
-  };
+  metadata: PieceMetadata;
   agent: AgentState;
 }
 
 export type Cell = Piece | null;
 export type Board = Cell[][];
 
-export interface Coord { row: number; col: number; }
-
+// --- Game & Debate Logic ---
 export type GameMode = 'jesus-vs-caan-ai' | 'caan-vs-jesus-ai' | 'ai-vs-ai' | 'local-coop';
 
 export interface ChatMessage {
@@ -53,11 +62,11 @@ export interface DebateEngine {
   proposer: { name: string; text: string; style: string };
   advisor: { name: string; text: string; role: string };
   verdict: string | null;
+  fallbackTier: 1 | 2 | 3;
 }
 
-export type PowerID = 
-  | 'water_to_wine' | 'resurrection' | 'loaves_and_fishes' | 'divine_protection' | 'forgiveness'
-  | 'temporal_shift' | 'exterminate' | 'cyber_upgrade' | 'chronos_distortion' | 'temporal_barrier';
+// --- Power Systems ---
+export type PowerID = 'water_to_wine' | 'resurrection' | 'loaves_and_fishes' | 'divine_protection' | 'forgiveness' | 'temporal_shift' | 'exterminate' | 'cyber_upgrade' | 'chronos_distortion' | 'temporal_barrier';
 
 export interface PowerSpec {
   id: PowerID;
@@ -70,6 +79,7 @@ export interface PowerSpec {
   targetType: 'friendly' | 'enemy' | 'empty' | 'any' | 'captured' | 'none';
 }
 
+// --- Global State & Metrics ---
 export interface GameState {
   board: Board;
   turn: Faction;
@@ -92,4 +102,11 @@ export interface SystemMetrics {
   activeAgents: number;
   memoryPressure: number;
   nodeHealth: 'stable' | 'degraded' | 'critical';
+}
+
+// --- Event Bus ---
+export interface SystemEvent {
+  type: 'MOVE_EXECUTED' | 'POWER_ACTIVATED' | 'AGENT_THOUGHT' | 'DEBATE_VERDICT';
+  payload: any;
+  timestamp: number;
 }
