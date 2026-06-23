@@ -1,18 +1,15 @@
 # ChessBoard Component Architecture
 
 ## Overview
-High-performance, memoized grid rendering system for the Darlek-Cann-Chess engine. 
+The `ChessBoard` component serves as the primary visual interface for the DARLEK CANN chess engine. It utilizes a memoized grid rendering system to ensure high-performance updates during quantum-state calculations.
+
+## Technical Workflow
+1. **State Synchronization**: Receives `board` and `validMoves` from the engine.
+2. **Memoization**: `moveMap` is computed via `useMemo` to prevent O(n) lookups during render.
+3. **Event Handling**: `handleCellClick` is wrapped in `useCallback` to maintain referential integrity.
+4. **Quantum Overlay**: The `isThinking` state triggers a backdrop-blur overlay, preventing user interaction during engine processing.
 
 ## Integration Schema
-- **State Management**: Consumes `board` (2D array), `validMoves` (Coord[]), and `isThinking` (boolean).
-- **Rendering Strategy**: Utilizes `React.memo` for individual cell pieces to minimize DOM thrashing during high-frequency state updates.
-- **Styling**: Tailwind CSS with custom radial gradients and ring-based selection indicators.
-
-## Workflow
-1. `moveMap` generation via `useMemo`.
-2. Grid iteration with coordinate-based keying.
-3. `PieceRenderer` injection for specialized piece logic (Ascension, Cyber-Drone, Wine-Knight).
-
-## Dependencies
-- `lucide-react` for iconography.
-- `../types` for interface definitions.
+- **Input**: `Board` (2D Array), `Faction`, `Coord` (Selected), `validMoves` (Array).
+- **Output**: `onCellClick` (Coord).
+- **Styling**: Tailwind CSS with custom radial gradients and pulse animations for 'Ascended' pieces.
