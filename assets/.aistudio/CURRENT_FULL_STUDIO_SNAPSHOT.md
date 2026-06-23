@@ -93,3 +93,4 @@ export interface ActionDescription {
 - **Project Portfolio Connection**: This manifest serves as the central nervous system for the `darlek-cann-v3` repository, pulling logic from `claudios_system_book` for character depth and `nbody_gravitational_simulator` for data organization.
 - **Deployment Target**: Optimized for Next.js 14+ with Edge Runtime compatibility for low-latency synthesis.
 
+
