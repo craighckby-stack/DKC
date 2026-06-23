@@ -110,3 +110,4 @@ export const ChessBoard = memo(({ board, turn, selectedCoord, validMoves, active
 
 
 
+
