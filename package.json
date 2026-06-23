@@ -1,7 +1,7 @@
 {
   "name": "darlek-cann-orchestrator",
   "version": "3.0.0",
-  "description": "Supreme Code Evolution Controller",
+  "description": "Supreme Code Evolution Controller - OMEGA Architecture",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
@@ -13,7 +13,9 @@
     "lint": "tsc --noEmit && eslint .",
     "test": "vitest run",
     "clean": "rm -rf dist",
-    "evolve": "tsx scripts/evolution-engine.ts"
+    "evolve": "tsx scripts/evolution-engine.ts",
+    "analyze": "tsx scripts/diagnostic-utility.ts",
+    "swarm:init": "tsx scripts/agent-orchestrator.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -24,7 +26,8 @@
     "pino": "^9.6.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "zod": "^3.24.2"
+    "zod": "^3.24.2",
+    "nanoid": "^5.1.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",
