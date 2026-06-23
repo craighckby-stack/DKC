@@ -4,9 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 /**
- * DARLEK CANN v3.0 - Build Orchestrator
- * Architecture: Vite + React + Tailwind + Agent-Core Integration
- * Integration: Siphoned from Sovereign-Kernel & SN-OMEGA patterns.
+ * DARLEK CANN v3.0 - ARCHITECTURAL BUILD ORCHESTRATOR
+ * Siphoned Patterns: SN-OMEGA (Chunking), Sovereign-Kernel (Env-Isolation).
+ * Purpose: High-performance agent-swarm execution environment.
  */
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -20,12 +20,9 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        '@components': path.resolve(__dirname, './src/components'),
-        '@hooks': path.resolve(__dirname, './src/hooks'),
-        '@lib': path.resolve(__dirname, './src/lib'),
-        '@types': path.resolve(__dirname, './src/types'),
         '@core': path.resolve(__dirname, './src/core'),
         '@agents': path.resolve(__dirname, './src/agents'),
+        '@shared': path.resolve(__dirname, './src/shared'),
       },
     },
     server: {
@@ -34,6 +31,9 @@ export default defineConfig(({ mode }) => {
       port: parseInt(env.PORT || '3000', 10),
       strictPort: true,
       cors: true,
+      headers: {
+        'X-Agent-Orchestrator': 'DARLEK-CANN-V3',
+      },
     },
     build: {
       sourcemap: mode !== 'production',
@@ -50,13 +50,15 @@ export default defineConfig(({ mode }) => {
       },
       reportCompressedSize: false,
       cssCodeSplit: true,
+      chunkSizeWarningLimit: 1000,
     },
     define: {
       '__BUILD_TIMESTAMP__': JSON.stringify(new Date().toISOString()),
       '__AGENT_CORE_VERSION__': JSON.stringify(process.env.npm_package_version || '3.0.0'),
+      '__ENV_MODE__': JSON.stringify(mode),
     },
     optimizeDeps: {
-      include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
+      include: ['react', 'react-dom', 'framer-motion', 'lucide-react', 'clsx', 'tailwind-merge'],
       exclude: ['@core/heavy-compute-worker'],
     },
   };
