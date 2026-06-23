@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const useTemporalScroll = (deps: any[]) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isAuto, setIsAuto] = useState(true);
+export const useTemporalScroll = (dependency: any) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [auto, setAuto] = useState(true);
 
   useEffect(() => {
-    if (isAuto && scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (auto && ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }, deps);
+  }, [dependency, auto]);
 
-  return { scrollRef, setIsAuto };
+  return { ref, setAuto };
 };
