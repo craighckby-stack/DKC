@@ -34,3 +34,4 @@ if (typeof window !== 'undefined') {
   const idle = (window as Window & { requestIdleCallback?: (cb: IdleRequestCallback) => number }).requestIdleCallback;
   idle ? idle(bootstrap) : setTimeout(bootstrap, 1);
 }
+
