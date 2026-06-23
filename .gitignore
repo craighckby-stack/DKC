@@ -12,9 +12,8 @@ out/
 coverage/
 storybook-static/
 *.tsbuildinfo
-typescript-build-info.json
-*.js # Only if compiled from TS and not intended to be committed (e.g., in a pure TS project)
-*.d.ts # Only if generated and not intended to be committed (e.g., in a pure TS project)
+*.js.map
+*.d.ts.map
 
 # Environment variables
 .env
@@ -23,7 +22,7 @@ typescript-build-info.json
 .env.test.local
 .env.production.local
 .env.*.local
-!.env.example # Keep the example file for reference
+!.env.example
 
 # Logs and temporary files
 *.log
@@ -39,33 +38,47 @@ cache/
 # OS and editor specific files
 .DS_Store
 Thumbs.db
-.vscode/ # VS Code specific files (e.g., user workspace state, local settings)
-!.vscode/settings.json # Often useful to commit shared settings
-!.vscode/extensions.json # Often useful to commit recommended extensions
-.idea/ # IntelliJ IDEA files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+.idea/
 *.bak
 *.swp
 *~
 
-# AI/Simulation/Data-heavy project artifacts (siphoned from portfolio context)
-data/ # Raw data, large datasets
-models/ # Trained AI models, checkpoints
-output/ # Simulation results, generated images/videos, reports
-results/
-checkpoints/
-upload/ # User uploads in web applications
-public/uploads/
-*.sqlite # Local SQLite databases
-*.db # Other local database files
-__pycache__/ # Python bytecode cache (if Python scripts are used for data/ML)
-venv/ # Python virtual environment (if Python scripts are used)
-.venv/ # Python virtual environment (alternative naming)
+# AI/Simulation/Data-heavy project artifacts (Siphoned from OMEGA/Unitary-Core architecture)
+data/raw/
+data/processed/
+models/checkpoints/
+models/weights/
+output/simulations/
+results/analysis/
+*.sqlite
+*.db
+*.bin
+*.onnx
+*.pt
+*.safetensors
 
-# Sensitive files (e.g., keys, certificates)
+# Python/Simulation environment integration
+__pycache__/
+venv/
+.venv/
+.pytest_cache/
+.tox/
+
+# Sensitive files (Security hardening)
 *.pem
 *.key
 *.crt
 *.p12
 *.jks
 *.env.secret
-*.secret
+*.vault
+*.credentials
+
+# Project specific overrides
+.DS_Store
+.eslintcache
+.stylelintcache
