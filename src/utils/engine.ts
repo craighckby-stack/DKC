@@ -1,23 +1,30 @@
-import { Board, Coord, Faction, Piece, PieceType } from "../types";
+import { Board, Coord, Faction, Piece, PieceType, PieceConfig } from "../types";
 
 export const PIECE_VALUES: Record<PieceType, number> = {
   p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000, wine_knight: 500, cyber_drone: 480,
 };
 
-const REGISTRY: Record<string, Record<string, any>> = {
-  caan: { '0,0': { name: "Dalek Sec", moveStyle: "cautious" }, '0,4': { name: "Dalek Caan", moveStyle: "balanced" }, default: { name: "Dalek Drone", moveStyle: "aggressive" } },
-  jesus: { '7,4': { name: "Jesus Christ", moveStyle: "protective" }, default: { name: "Apostle", moveStyle: "balanced" } }
+const ENTITY_MANIFEST: Record<Faction, Record<string, PieceConfig>> = {
+  caan: {
+    '0,0': { name: "Dalek Sec", moveStyle: "cautious" },
+    '0,4': { name: "Dalek Caan", moveStyle: "balanced" },
+    default: { name: "Dalek Drone", moveStyle: "aggressive" }
+  },
+  jesus: {
+    '7,4': { name: "Jesus Christ", moveStyle: "protective" },
+    default: { name: "Apostle", moveStyle: "balanced" }
+  }
 };
 
 export const isWithinBoard = (r: number, c: number): boolean => r >= 0 && r < 8 && c >= 0 && c < 8;
 
-export const cloneBoard = (board: Board): Board => board.map(row => row.map(cell => cell ? { ...cell } : null));
+export const cloneBoard = (board: Board): Board => board.map(row => [...row]);
 
 export function createInitialBoard(): Board {
   const board: Board = Array.from({ length: 8 }, () => Array(8).fill(null));
   const setup = (row: number, faction: Faction, types: PieceType[]) => {
     types.forEach((type, col) => {
-      const config = REGISTRY[faction][`${row},${col}`] || REGISTRY[faction].default;
+      const config = ENTITY_MANIFEST[faction][`${row},${col}`] || ENTITY_MANIFEST[faction].default;
       board[row][col] = { id: `${faction}_${type}_${col}`, type, faction, hasMoved: false, ...config };
     });
   };
@@ -28,13 +35,19 @@ export function createInitialBoard(): Board {
   return board;
 }
 
+const VECTORS = {
+  orthogonal: [{r:-1,c:0},{r:1,c:0},{r:0,c:-1},{r:0,c:1}],
+  diagonal: [{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}],
+  knight: [{r:-2,c:-1},{r:-2,c:1},{r:-1,c:-2},{r:-1,c:2},{r:1,c:-2},{r:1,c:2},{r:2,c:-1},{r:2,c:1}]
+};
+
 export function getBasicMoves(board: Board, from: Coord): Coord[] {
   const piece = board[from.row][from.col];
   if (!piece) return [];
   const moves: Coord[] = [];
   const { type, faction } = piece;
 
-  const add = (r: number, c: number): boolean => {
+  const validateAndPush = (r: number, c: number): boolean => {
     if (!isWithinBoard(r, c)) return false;
     const target = board[r][c];
     if (!target || target.faction !== faction) moves.push({ row: r, col: c });
@@ -51,14 +64,15 @@ export function getBasicMoves(board: Board, from: Coord): Coord[] {
       const t = board[from.row + d]?.[c];
       if (t && t.faction !== faction) moves.push({ row: from.row + d, col: c });
     });
-  } else if (["n", "wine_knight", "cyber_drone"].includes(type)) {
-    [{r:-2,c:-1},{r:-2,c:1},{r:-1,c:-2},{r:-1,c:2},{r:1,c:-2},{r:1,c:2},{r:2,c:-1},{r:2,c:1}].forEach(o => add(from.row + o.r, from.col + o.c));
-    if (type === "wine_knight") [{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}].forEach(o => add(from.row + o.r, from.col + o.c));
+  } else if (type === "n" || type === "cyber_drone") {
+    VECTORS.knight.forEach(o => validateAndPush(from.row + o.r, from.col + o.c));
+  } else if (type === "wine_knight") {
+    [...VECTORS.knight, ...VECTORS.diagonal].forEach(o => validateAndPush(from.row + o.r, from.col + o.c));
   } else {
-    const dirs = [...(type !== "r" ? [{r:-1,c:-1},{r:-1,c:1},{r:1,c:-1},{r:1,c:1}] : []), ...(type !== "b" ? [{r:-1,c:0},{r:1,c:0},{r:0,c:-1},{r:0,c:1}] : [])];
+    const dirs = [...(type !== "r" ? VECTORS.diagonal : []), ...(type !== "b" ? VECTORS.orthogonal : [])];
     dirs.forEach(d => {
       let r = from.row + d.r, c = from.col + d.c;
-      while (add(r, c) && !board[r][c]) { r += d.r; c += d.c; }
+      while (validateAndPush(r, c) && !board[r][c]) { r += d.r; c += d.c; }
     });
   }
   return moves;
