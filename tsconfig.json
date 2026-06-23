@@ -10,6 +10,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -21,22 +23,33 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/lib/*": ["lib/*"],
-      "@/types/*": ["types/*"],
-      "@/agents/*": ["agents/*"],
       "@/core/*": ["core/*"],
+      "@/agents/*": ["agents/*"],
       "@/services/*": ["services/*"],
-      "@/context/*": ["context/*"],
-      "@/*": ["./*"]
-    },
-    "plugins": [
-      { "name": "next" }
-    ]
+      "@/hooks/*": ["hooks/*"],
+      "@/components/*": ["components/*"],
+      "@/types/*": ["types/*"],
+      "@/lib/*": ["lib/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", **/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", ".next", "out", "build", "dist", "coverage"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "build",
+    "dist",
+    "coverage",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
