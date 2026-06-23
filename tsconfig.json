@@ -1,124 +1,26 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "allowJs": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "skipLibCheck": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noUncheckedIndexedAccess": true,
-    "useUnknownInCatchVariables": true,
-    "strictPropertyInitialization": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
     "jsx": "react-jsx",
-    "incremental": true,
-    "verbatimModuleSyntax": true,
-    "baseUrl": ".",
     "paths": {
-      "@/core/*": ["core/*"],
-      "@/agents/*": ["agents/*"],
-      "@/services/*": ["services/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/components/*": ["components/*"],
-      "@/types/*": ["types/*"],
-      "@/lib/*": ["lib/*"],
-      "@/shared/*": ["shared/*"],
-      "@/utils/*": ["utils/*"]
-    }
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "out",
-    "build",
-    "dist",
-    "coverage",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+      "@/*": [
+        "./*"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

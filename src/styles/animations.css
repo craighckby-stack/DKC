@@ -1,8 +1,0 @@
-/* Advanced motion primitives for OMEGA-Core */
-.animate-data-stream {
-  animation: scan-line 10s linear infinite;
-}
-
-.animate-quantum-spin {
-  animation: rotate-slow 30s linear infinite;
-}
