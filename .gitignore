@@ -1,8 +1,71 @@
+# Dependency directories
 node_modules/
+.pnp/
+.pnp.js
+
+# Build artifacts
 build/
 dist/
+out/
+.next/
+.vercel/
 coverage/
-.DS_Store
+storybook-static/
+*.tsbuildinfo
+typescript-build-info.json
+*.js # Only if compiled from TS and not intended to be committed (e.g., in a pure TS project)
+*.d.ts # Only if generated and not intended to be committed (e.g., in a pure TS project)
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+!.env.example # Keep the example file for reference
+
+# Logs and temporary files
 *.log
-.env*
-!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+tmp/
+temp/
+logs/
+cache/
+
+# OS and editor specific files
+.DS_Store
+Thumbs.db
+.vscode/ # VS Code specific files (e.g., user workspace state, local settings)
+!.vscode/settings.json # Often useful to commit shared settings
+!.vscode/extensions.json # Often useful to commit recommended extensions
+.idea/ # IntelliJ IDEA files
+*.bak
+*.swp
+*~
+
+# AI/Simulation/Data-heavy project artifacts (siphoned from portfolio context)
+data/ # Raw data, large datasets
+models/ # Trained AI models, checkpoints
+output/ # Simulation results, generated images/videos, reports
+results/
+checkpoints/
+upload/ # User uploads in web applications
+public/uploads/
+*.sqlite # Local SQLite databases
+*.db # Other local database files
+__pycache__/ # Python bytecode cache (if Python scripts are used for data/ML)
+venv/ # Python virtual environment (if Python scripts are used)
+.venv/ # Python virtual environment (alternative naming)
+
+# Sensitive files (e.g., keys, certificates)
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.env.secret
+*.secret
