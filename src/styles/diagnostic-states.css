@@ -1,0 +1,5 @@
+@layer components {
+  .state-nominal { @apply text-data-green border-data-green/30; }
+  .state-warning { @apply text-dalek-gold border-dalek-gold/30; }
+  .state-critical { @apply text-dalek-red border-dalek-red/30 animate-pulse; }
+}
