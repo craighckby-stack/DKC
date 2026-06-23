@@ -107,3 +107,4 @@ export type SystemEvent =
   | { type: 'POWER_ACTIVATED'; payload: { powerId: PowerID; target: Coord } }
   | { type: 'AGENT_THOUGHT'; payload: { agentId: string; thought: string } }
   | { type: 'DEBATE_VERDICT'; payload: { topic: string; winner: Faction } };
+
