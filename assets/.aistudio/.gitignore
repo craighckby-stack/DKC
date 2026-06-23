@@ -8,6 +8,7 @@
 *.secret
 *.pem
 *.key
+*.vault
 
 # 2. IDE, OS & SYSTEM ARTIFACTS
 .DS_Store
@@ -17,6 +18,7 @@
 *.swo
 *.log
 *.tmp
+.history/
 
 # 3. BUILD, DEPENDENCY & ORCHESTRATION ARTIFACTS
 node_modules/
@@ -27,6 +29,7 @@ out/
 .tsbuildinfo
 .npm/
 .yarn/
+coverage/
 
 # 4. AI/ML EPHEMERAL DATA (Siphoned from SN: OMEGA & unitary-core)
 # Exclude binary weights, training sets, and quantum-state snapshots
@@ -41,6 +44,7 @@ out/
 models/checkpoints/
 models/binaries/
 models/weights/
+*.safetensors
 
 # 5. WORKFLOW, SIMULATION & EXPERIMENTATION LOGS
 # Siphoned from nbody_gravitational_simulator & epistemic_debate_engine
@@ -62,6 +66,7 @@ __pycache__/
 *.vectorstore
 *.faiss
 *.chroma/
+*.pinecone/
 
 # 7. JUPYTER & NOTEBOOK ARTIFACTS
 .ipynb_checkpoints/
@@ -74,8 +79,10 @@ __pycache__/
 !/workflows/**/*.json
 !/docs/**/*.md
 !/assets/.aistudio/README.md
+!/assets/.aistudio/MANIFEST.md
 
 # 9. DARLEK CANN SYSTEM OVERRIDES
 # Protect core evolution logic from accidental pruning
 !/src/evolution_engine/**/*.ts
 !/src/orchestrator/**/*.ts
+!/src/types/**/*.ts
