@@ -1,14 +1,14 @@
-# DARLEK CANN v3.0 - Build Architecture
+# DARLEK CANN v3.0 - Architectural Blueprint
 
-## Overview
-This system utilizes a highly optimized Vite configuration designed for agent-orchestration. 
+## System Overview
+This repository functions as the central orchestrator for the DARLEK CANN agent swarm. It utilizes a modular Vite configuration to ensure strict separation between the core logic (`@core`) and the autonomous agent swarm (`@agents`).
 
-## Key Architectural Decisions
-1. **Agent-Mode Isolation**: When `DISABLE_HMR` is true, the system enters 'Autonomous Mode', disabling polling and HMR to prevent memory leaks in headless environments.
-2. **Core Chunking**: The `src/core` directory is isolated into an `agent-core` chunk to ensure that the primary agent logic is loaded independently of UI components.
-3. **Environment Injection**: Build versions and core IDs are injected at compile time to allow for runtime telemetry and version tracking across the swarm.
+## Build Pipeline
+- **Transpilation**: ESNext target for maximum performance.
+- **Chunking**: Granular separation of `vendor`, `agent-core`, and `agent-swarm` to facilitate hot-swapping of agent logic without full system reloads.
+- **Environment**: Injected via `loadEnv` with strict typing enforced by `define` blocks.
 
 ## Integration Schema
-- `@core`: Contains the primary agent logic, state machines, and epistemic engines.
-- `@components`: UI layer, strictly decoupled from core logic.
-- `@lib`: Shared utilities and quantum-data processing helpers.
+- **Sovereign-Kernel**: Implements the self-refactoring hooks.
+- **SN-OMEGA**: Provides the multi-dimensional analysis interface.
+- **Agent Orchestra**: Managed via the `@agents` alias for direct import paths.
