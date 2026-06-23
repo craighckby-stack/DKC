@@ -1,16 +1,37 @@
-# DARLEK CANN v3.0 - SYSTEM ARCHITECTURE
+# DARLEK CANN v3.0 - SYSTEM ARCHITECTURE MANIFEST
 
-## Overview
-This system serves as the primary dialogue synthesis engine for the Dalek Caan persona, integrating multi-tier LLM fallbacks and stateful context management.
+## 1. CORE ARCHITECTURAL PARADIGM
+DARLEK CANN v3.0 operates as a multi-tier, self-refactoring agent orchestrator. It is designed to interface with the `SN: OMEGA` swarm, utilizing a quantum-state context buffer to maintain character integrity across high-latency LLM calls.
 
-## Architectural Blueprints
-- **DialogueOrchestrator**: Manages the lifecycle of AI interactions. Implements a circuit-breaker pattern for API failures.
-- **Fallback Mechanism**: Provides deterministic, character-accurate responses when the primary LLM is unavailable.
-- **Integration Schema**: Designed to be consumed by the `SN: OMEGA` agent swarm.
+## 2. SYSTEM INTERFACE DECLARATIONS
+typescript
+interface DialogueOrchestrator {
+  readonly version: "3.0";
+  readonly state: "ACTIVE" | "FALLBACK" | "CRITICAL_FAILURE";
+  processAction(input: ActionDescription): Promise<DialogueResponse>;
+  teardown(): Promise<void>;
+}
 
-## Workflow
-1. Receive `actionDescription` from client.
-2. Validate context via `history` buffer.
-3. Attempt Gemini 1.5 Flash synthesis.
-4. Fallback to local `FALLBACK_POOL` on error.
-5. Return structured JSON dialogue.
+interface ActionDescription {
+  id: string;
+  payload: string;
+  priority: 0 | 1 | 2;
+  contextHash: string;
+}
+
+
+## 3. INTEGRATION SCHEMA (SN: OMEGA COMPATIBILITY)
+- **Primary Tier**: Gemini 1.5 Flash (High-throughput synthesis).
+- **Secondary Tier**: Local `FALLBACK_POOL` (Deterministic character-accurate responses).
+- **Tertiary Tier**: `unitary-core` quantum-data processor (For long-term context retention).
+
+## 4. OPERATIONAL WORKFLOW
+1. **Ingestion**: `ActionDescription` is validated against the `contextHash`.
+2. **Synthesis**: `DialogueOrchestrator` attempts primary synthesis via `SN: OMEGA` API.
+3. **Circuit-Breaker**: If latency > 2500ms or 5xx error, triggers `FALLBACK_POOL`.
+4. **Memory Injection**: Successful responses are serialized into the `unitary-core` buffer for future epistemic alignment.
+
+## 5. DIAGNOSTIC UTILITIES
+- `validateContext()`: Checks for memory leaks in the `history` buffer.
+- `pruneRedundantStates()`: Clears dead-weight objects from the `DialogueOrchestrator` cache.
+- `syncWithSovereignKernel()`: Ensures self-refactoring agents are aligned with the latest `sovereign-v86` kernel updates.
