@@ -1,126 +1,51 @@
-# Dalek Caan Chess (with EMG Core and Divine Ethics)
+# ♟️ Darlek Caan vs Jesus Chess: Multi-Agent Council Edition
 
-An advanced web-based chess simulation portraying the ultimate tactical, philosophical, and mechanical clash of synthetic consciousness. This platform pits **Dalek Caan** (the insane, unethical chess-exterminator of Skaro) against **Jesus's** (the serene, community-seeking, miraculous savior) under custom chess rules where ethics and chaotic anomalies actively reshape the board's fabric.
-
----
-
-## 🧠 Dual Brains & Custom Ethical Frameworks
-
-This engine utilizes two completely independent, separate minimax-based heuristic algorithms designed with unique evaluation tables, noise profiles, and dynamic interactive capabilities:
-
-### 1. Dalek Caan (Chaotic-Evil / No Ethics)
-* **Directives**: Absolute tactical dominance and swift extermination of white units.
-* **Evaluation Bias**: Values major destructive units (Queens as the *Dalek Emperor*, Rooks as *Dalek Combat Drones*) at an elevated baseline.
-* **Erratic Heuristics**: Applies a randomized noise range overlaying static evaluation, producing erratic, unpredictable, and highly aggressive maneuvers.
-* **Illegal Interventions (Cheat Mode)**:
-  * Has a **25% chance** to bypass coordinate restrictions and trigger cheats:
-    * **Vaporize**: Instantly deletes a white piece with an extermination beam.
-    * **Spawn Drone**: Deploys a new black Rook onto an empty square.
-    * **Teleport**: Moves an existing black piece directly to any square on the board.
-  * If the cheat is successfully called out by Jesus's, the rules of the board are divine-enforced and reverted; if allowed or ignored, the illegal state persists!
-
-### 2. Jesus's AI (Serene-Good / Divine Ethics)
-* **Directives**: Promoting center harmony, protection, and preservation.
-* **Evaluation Bias**: Bound by values where &ldquo;the meek shall inherit the earth.&rdquo; Pawns receive an elevated baseline value, and Bishops denote holy guardians.
-* **Community Ethics**: Awarded an additive strength multiplier for friendly white pieces keeping adjacent configurations to shield each other.
-* **Serenity Heuristics**: Operates with zero erratic noise to maintain a calm, perfectly calculated, and righteous defensive path.
-* **Celestial Miracles**:
-  * Has a **12% chance** to trigger reality-bending miracles:
-    * **Celestial Resurrection**: Raises a captured white piece back from the grave and positions it safely on the board ("Lazarus, come forth!").
-    * **Sacred Redemption**: Reaches out to a corrupt black pawn with compassion, converting it into a white piece.
+Welcome to the ultimate battle of cosmic theology and temporal science fiction. This full-stack tactical application pits **Black Dalek Caan's cybernetic temporal armada** against **Lord Jesus Christ's holy seers and miracle apostles**, fully driven by a multi-agent architectural system.
 
 ---
 
-## ⚡ EMG Core & Antifragile PoC Alignment
+## 💬 The Strategic Multi-Agent Council Chamber
 
-In accordance with Craig Huckerby's technical mandate for **EMG Core Integration**, this iteration serves as an exploration of:
-* **Dynamic Integrity**: Overcoming fragile static defenses by implementing runtime self-reconciliation and state adjustments post-cheat and post-miracle.
-* **Systemic Interdependence**: Minimizing Security State Entropy ($S_E$) within the hybrid board layout to achieve real-time validation under simulated load.
-* **Sentient Synthesis**: Incorporating the findings of the *Analysis of the AI's First Question Synthesis*—recognizing that synthetic systems default immediately to diagnostic and fault-finding modes for existence validation rather than poetic abstraction.
+The core breakthrough of this edition is the **Strategic multi-agent debate coordination pipeline**. Every single coordinate movement on the grid is no longer a silent numeric translation; instead, it is a fully voiced political cabinet session!
+
+### Live Dialogue & Debate Lifecycle:
+1. **The Tactical Proposal**: When a piece agent initiates planning (either player-directed or AI evaluated), it pitches its move proposal to the faction's cabinet based on its unique style (e.g. *Aggressive*, *Cautious*, *Protective*, or *Erratic*).
+2. **The Advisor Evaluation**: A friendly cabinet advisor (such as *Apostle Thomas* doubting the safety of the coordinate flank, or *The Master* demanding more destructive temporal loops) chimes in with real-time feedback, critiques, and situational warnings.
+3. **The Sovereign Sign-Off**: Faction supreme leaders (**Jesus Christ** or **Black Dalek Caan**) exercise their supreme veto/approval authority, issuing final directives to execute the move on the board.
 
 ---
 
-## ✉️ Inquiry, Alignment, and Sandbox Technical Access
+## 🏹 Faction Rosters & Piece Personalities
 
-For full access to credentials, documentation templates, or to align on technical execution:
+Every piece on the board is a self-aware, stateful agent with unique personality parameters and custom heuristics:
 
-* **Senior Technical Director**: Craig Huckerby
-* **Contact & Alignment Email**: [craighckby@gmail.com](mailto:craighckby@gmail.com)
+### ✝️ The Holy Seer Faction (White Team)
+*   **Supreme Arbiter**: **Jesus Christ** (Sovereign parables, healing light, and Lazarus resurrection waves).
+*   **Queen of Heaven**: **Mother Mary** (Runs a powerful `protective` standard, sheathing friendly blocks in cosmic star-cloaks).
+*   **Vanguard Knight**: **Apostle Peter** (An `aggressive` charging knight, ready to strike for immediate justice).
+*   **Cabinet Advisor**: **Apostle Thomas** (A highly `cautious` tactical advisor who demands absolute coordinate verification).
+*   **Zealous Defender**: **Apostle James** (A fiery defender who unleashes bold moves of thunder).
 
+### ◉ The Temporal Dalek Faction (Black Team)
+*   **Supreme Prophet**: **Black Dalek Caan** (Screeching insane chronological predictions and cybernetic conversions).
+*   **Rogue Time Lord**: **The Master** (An `erratic` wildcard piece, introducing chaos, unpredictable shifts, and high strategic sarcasm).
+*   **Steel Commander**: **Cyber Leader** (A purely mathematical `cautious` agent focused on cybernetic spatial conversions).
+*   **Frontline Dreadnoughts**: **Dalek drones, Dalek Sec, Dalek Jast** (Aggressive frontline rays intent on coordinate vaporization).
 
+---
 
+## ⚡ Active Supernatural Spells (Weaponry decks)
 
+Both commanders wield dynamic spell decks powered by **Power Points (PP)** accumulated during each turn cycle:
 
+*   **Holy Miracles**: Water to Wine (Upgrade Bishop), Lazarus Miracle (Resurrect fallen Apostle), Loaves & Fishes (Duplicate Pawn), Divine Ascension Shield.
+*   **Chrono-Weapons**: Chrono Extermination Ray, Temporal Shift Swap, Cyber Upgrade, Chronos Distortion Freeze.
 
+---
 
+## 🛠️ Technological Stack
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/f5fc96df-1f8b-4acc-96a9-f20cc84e269a
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*   **Frontend**: React 18 + Vite utilizing clean corporate dark-mode typography, Lucide icons, and responsive desktop-first grids.
+*   **Backend**: Node + Express custom server serving dynamic full-stack REST API proxying.
+*   **AI Engine**: Server-side **Gemini 3.5 Flash** models with structured JSON schemas generating high-fidelity multi-turn fan-fiction dialogues and cabinet transcripts.
+*   **Resiliency Layer**: Includes local-level semantic fallback generators in case of API speed-throttling or token limit restrictions.

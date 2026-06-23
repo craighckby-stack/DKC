@@ -38,9 +38,6 @@ export function ControlOverlay({
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2 font-serif bg-gradient-to-r from-amber-200 via-white to-emerald-200 bg-clip-text text-transparent">
             DARLEK CAAN vs JESUS CHESS
           </h1>
-          <p className="text-xs text-slate-400 font-mono tracking-widest uppercase">
-            A Quantum Theological Hybrid Conflict Simulation
-          </p>
         </div>
 
         {/* Content Container */}
@@ -82,7 +79,7 @@ export function ControlOverlay({
                   >
                     <div className="flex items-center gap-2 font-bold text-sm">
                       <Cpu className="w-4 h-4 text-emerald-400" />
-                      Play as Caan (Quantum Seer)
+                      Play as Darlek Caan
                     </div>
                     <span className="text-xs text-slate-400">Unleash laser exterminations on holy apostles</span>
                   </button>
@@ -248,22 +245,3 @@ export function ControlOverlay({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

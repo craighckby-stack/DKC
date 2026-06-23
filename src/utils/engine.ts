@@ -22,6 +22,158 @@ export const PIECE_VALUES: Record<PieceType, number> = {
   cyber_drone: 480, // Dalek upgraded heavy trooper
 };
 
+export function initializePieceAgent(piece: Piece, row: number, col: number): Piece {
+  const { faction, type } = piece;
+
+  if (faction === "caan") {
+    if (row === 0) {
+      // Back row
+      switch (col) {
+        case 0:
+          piece.name = "Dalek Sec";
+          piece.personality = "Cold, calculated black commander of the Cult of Skaro.";
+          piece.voiceDesc = "refined, menacing, monotone Dalek leader";
+          piece.moveStyle = "cautious";
+          break;
+        case 1:
+          piece.name = "Cyber Leader";
+          piece.personality = "Unyielding commander of the tactical upgrade legions.";
+          piece.voiceDesc = "cold, logical, metallic Cyberman commander";
+          piece.moveStyle = "aggressive";
+          break;
+        case 2:
+          piece.name = "Dalek Jast";
+          piece.personality = "Zealous Cult priest paranoid of timeline anomalies and miracles.";
+          piece.voiceDesc = "screeching, paranoid Dalek sect leader";
+          piece.moveStyle = "erratic";
+          break;
+        case 3:
+          piece.name = "The Master";
+          piece.avatar = "/src/assets/images/the_master_1782217040743.jpg";
+          piece.personality = "A wicked, brilliant rogue Time Lord playing with drums in his head.";
+          piece.voiceDesc = "devious, maniacal, charismatic rogue Time Lord";
+          piece.moveStyle = "erratic";
+          break;
+        case 4:
+          piece.name = "Black Dalek Caan";
+          piece.avatar = "/src/assets/images/darlek_caan_1782217022852.jpg";
+          piece.personality = "The absolutely insane, screeching Quantum Prophet of Skaro.";
+          piece.voiceDesc = "insane screaming Dalek prophet screeching about catastrophic prophecies";
+          piece.moveStyle = "balanced";
+          break;
+        case 5:
+          piece.name = "Dalek Thay";
+          piece.personality = "Stubborn, heavily armored veteran member of the Skaro council.";
+          piece.voiceDesc = "deep, defensive, unyielding Dalek veteran";
+          piece.moveStyle = "protective";
+          break;
+        case 6:
+          piece.name = "Cyber Infiltrator";
+          piece.personality = "Espionage cyber-unit specialized in organic conversion.";
+          piece.voiceDesc = "robotic, whispered cold upgrade assassin";
+          piece.moveStyle = "aggressive";
+          break;
+        case 7:
+          piece.name = "Supreme Dalek";
+          piece.personality = "Booming flagship military general with massive shielding rules.";
+          piece.voiceDesc = "loud, booming, arrogant Supreme Dalek militarist";
+          piece.moveStyle = "protective";
+          break;
+      }
+    } else if (row === 1) {
+      // Pawns
+      const pawnNames = [
+        "Dalek Drone Alpha", "Cyberman Recruit", "Assault Dalek Beta", "Dalek Decimator",
+        "Chronos Guard Dalek", "Temporal Scout Dalek", "Cyber Sentry Unit", "Dalek Emperor Guard"
+      ];
+      const pawnStyles: ("aggressive" | "cautious" | "balanced" | "erratic" | "protective")[] = [
+        "aggressive", "cautious", "aggressive", "balanced", "erratic", "cautious", "aggressive", "protective"
+      ];
+      piece.name = pawnNames[col];
+      piece.personality = `Standard ${piece.name.includes("Cyber") ? "Cybernetic" : "Dalek"} combat drone marching on Skaro orders.`;
+      piece.voiceDesc = "monotone, mechanical soldier";
+      piece.moveStyle = pawnStyles[col];
+    }
+  } else {
+    // jesus faction
+    if (row === 7) {
+      // Back row
+      switch (col) {
+        case 0:
+          piece.name = "Apostle Peter";
+          piece.personality = "The steadfast Rock of the Church, passionately loyal and defensive.";
+          piece.voiceDesc = "resolute, brave, core foundational Apostle of holy fire";
+          piece.moveStyle = "protective";
+          break;
+        case 1:
+          piece.name = "Apostle Andrew";
+          piece.personality = "Fisherman of men, courageous team builder and quiet helper.";
+          piece.voiceDesc = "gentle, hardworking, encouraging fisherman Apostle";
+          piece.moveStyle = "balanced";
+          break;
+        case 2:
+          piece.name = "Apostle Thomas";
+          piece.personality = "Highly analytical skeptic. Doubts move patterns until verified by eyes.";
+          piece.voiceDesc = "doubting, highly cautious, analytical follower";
+          piece.moveStyle = "cautious";
+          break;
+        case 3:
+          piece.name = "Mother Mary";
+          piece.avatar = "/src/assets/images/mary_portrait_1782217075178.jpg";
+          piece.personality = "Queen of Heaven, compassionate guide wrapping allies in starry blue protection.";
+          piece.voiceDesc = "magnificently peaceful, comforting maternal shield of heaven";
+          piece.moveStyle = "protective";
+          break;
+        case 4:
+          piece.name = "Jesus Christ";
+          piece.avatar = "/src/assets/images/jesus_portrait_1782217061915.jpg";
+          piece.personality = "The Savior and Prince of Peace, teaching cosmic grace and parables.";
+          piece.voiceDesc = "beautifully serene, profoundly wise, speaking in parables and love";
+          piece.moveStyle = "protective";
+          break;
+        case 5:
+          piece.name = "Apostle John";
+          piece.personality = "The Beloved, poet of holy light and author of grand theological visions.";
+          piece.voiceDesc = "deeply spiritual, poet of light, loving disciple";
+          piece.moveStyle = "balanced";
+          break;
+        case 6:
+          piece.name = "Apostle Philip";
+          piece.personality = "Practical explorer seeking quick answers and direct travel paths.";
+          piece.voiceDesc = "practical, literal, curious Apostle of action";
+          piece.moveStyle = "aggressive";
+          break;
+        case 7:
+          piece.name = "Apostle James";
+          piece.personality = "Son of Thunder, full of fiery zeal, marching forward on the wings of lightning.";
+          piece.voiceDesc = "thunderous, bold, zealous Apostle of fire and wind";
+          piece.moveStyle = "aggressive";
+          break;
+      }
+    } else if (row === 6) {
+      // Pawns
+      const pawnNames = [
+        "Apostle Bartholomew", "Apostle Matthew", "Apostle Thaddeus", "Apostle Simon the Zealot",
+        "Apostle James (Lesser)", "Apostle Jude Thomas", "Apostle Matthias", "Apostle Judas Iscariot"
+      ];
+      const pawnStyles: ("aggressive" | "cautious" | "balanced" | "erratic" | "protective")[] = [
+        "balanced", "cautious", "balanced", "aggressive", "cautious", "protective", "balanced", "erratic"
+      ];
+      piece.name = pawnNames[col];
+      if (col === 7) {
+        piece.personality = "A conflicted and remorseful figure, battling fear, silver temptation, and seeking grace.";
+        piece.voiceDesc = "conflicted, anxious, looking for silver or mercy";
+      } else {
+        piece.personality = `Devoted disciple of Christ, supporting the grand spiritual alliance.`;
+        piece.voiceDesc = "humble, faithful, helpful follower";
+      }
+      piece.moveStyle = pawnStyles[col];
+    }
+  }
+
+  return piece;
+}
+
 export function createInitialBoard(): Board {
   const board: Board = Array(8)
     .fill(null)
@@ -30,35 +182,41 @@ export function createInitialBoard(): Board {
   // Initialize Black (Faction: caan, Dalek alliance) on Row 0 and 1
   const caanBackRow: PieceType[] = ["r", "n", "b", "q", "k", "b", "n", "r"];
   for (let col = 0; col < 8; col++) {
-    board[0][col] = {
+    const bkPiece: Piece = {
       id: `caan_${caanBackRow[col]}_${col}`,
       type: caanBackRow[col],
       faction: "caan",
       hasMoved: false,
     };
-    board[1][col] = {
+    board[0][col] = initializePieceAgent(bkPiece, 0, col);
+
+    const pPiece: Piece = {
       id: `caan_p_${col}`,
       type: "p",
       faction: "caan",
       hasMoved: false,
     };
+    board[1][col] = initializePieceAgent(pPiece, 1, col);
   }
 
   // Initialize White (Faction: jesus, Divine forces) on Row 6 and 7
   const jesusBackRow: PieceType[] = ["r", "n", "b", "q", "k", "b", "n", "r"];
   for (let col = 0; col < 8; col++) {
-    board[6][col] = {
+    const pPiece: Piece = {
       id: `jesus_p_${col}`,
       type: "p",
       faction: "jesus",
       hasMoved: false,
     };
-    board[7][col] = {
+    board[6][col] = initializePieceAgent(pPiece, 6, col);
+
+    const bkPiece: Piece = {
       id: `jesus_${jesusBackRow[col]}_${col}`,
       type: jesusBackRow[col],
       faction: "jesus",
       hasMoved: false,
     };
+    board[7][col] = initializePieceAgent(bkPiece, 7, col);
   }
 
   return board;
@@ -484,6 +642,73 @@ export function calculateBestMove(board: Board, faction: Faction): { from: Coord
             score += PIECE_VALUES[captured.type] * 1.5;
           }
 
+          // ---- UNIQUE AGENT MOVE LOGIC (RESPONSIBLE FOR THEIR OWN MOVES) ----
+          const agentStyle = piece.moveStyle || "balanced";
+          
+          if (agentStyle === "aggressive") {
+            // Aggressive pieces want to move forward and attack
+            const targetRowWeight = faction === "jesus" ? (7 - to.row) : to.row;
+            score += targetRowWeight * 8; // bonus for charging forward
+            
+            // Extra bonus for moving closer to the opponent King
+            const enemyKingPos = findKing(board, faction === "jesus" ? "caan" : "jesus");
+            if (enemyKingPos) {
+              const prevDist = Math.abs(from.row - enemyKingPos.row) + Math.abs(from.col - enemyKingPos.col);
+              const nextDist = Math.abs(to.row - enemyKingPos.row) + Math.abs(to.col - enemyKingPos.col);
+              if (nextDist < prevDist) {
+                score += 35; // bonus for stalking the enemy king
+              }
+            }
+
+            // Bonus for giving check
+            if (isFactionsKingInCheck(testBoard, faction === "jesus" ? "caan" : "jesus")) {
+              score += 75; 
+            }
+          } 
+          else if (agentStyle === "cautious") {
+            // Cautious agents hate putting themselves in danger!
+            const oppFaction = faction === "jesus" ? "caan" : "jesus";
+            let isLandingThreatened = false;
+            for (let tr = 0; tr < 8; tr++) {
+              for (let tc = 0; tc < 8; tc++) {
+                const oppPiece = testBoard[tr][tc];
+                if (oppPiece && oppPiece.faction === oppFaction) {
+                  const oppMoves = getBasicMoves(testBoard, { row: tr, col: tc });
+                  if (oppMoves.some(m => m.row === to.row && m.col === to.col)) {
+                    isLandingThreatened = true;
+                    break;
+                  }
+                }
+              }
+              if (isLandingThreatened) break;
+            }
+
+            if (isLandingThreatened) {
+              score -= 150; // high penalty for landing on threatened coordinate
+            }
+
+            // Prefer retreating or staying in safer territories
+            const isCloserToHome = faction === "jesus" ? (to.row > from.row) : (to.row < from.row);
+            if (isCloserToHome) {
+              score += 20;
+            }
+          }
+          else if (agentStyle === "protective") {
+            // Protective pieces want to stay near their own King
+            const friendlyKingPos = findKing(board, faction);
+            if (friendlyKingPos) {
+              const distToKing = Math.abs(to.row - friendlyKingPos.row) + Math.abs(to.col - friendlyKingPos.col);
+              if (distToKing <= 2) {
+                score += 40;
+              }
+            }
+          }
+          else if (agentStyle === "erratic") {
+            // Erratic agents (insane Daleks, The Master, Judas) add random noise / unpredictability
+            const randomJitter = Math.floor(Math.sin((to.row * 7 + to.col * 13) * 1000) * 45);
+            score += randomJitter;
+          }
+
           possibleMoves.push({ from, to, score });
         }
       }
@@ -497,4 +722,5 @@ export function calculateBestMove(board: Board, faction: Faction): { from: Coord
   const bestScore = possibleMoves[0].score;
   const candidates = possibleMoves.filter((m) => Math.abs(m.score - bestScore) < 15);
 
-  return candidates[Math.floor(
+  return candidates[Math.floor(Math.random() * candidates.length)];
+}

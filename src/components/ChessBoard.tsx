@@ -121,36 +121,36 @@ export function ChessBoard({
                   <div
                     className={`relative w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all cursor-pointer ${
                       cell.faction === "jesus"
-                        ? "text-amber-100 hover:scale-105"
-                        : "text-emerald-100 hover:scale-105"
+                        ? "text-white bg-slate-950/40 border border-white/20 hover:scale-105 shadow-[0_0_12px_rgba(255,255,255,0.15)]"
+                        : "text-slate-950 bg-slate-100 border-2 border-slate-950 hover:scale-105 shadow-[0_2px_10px_rgba(255,255,255,0.1)]"
                     }`}
                   >
                     
                     {/* Glowing active selections styles */}
                     {isSelected && (
                       <div className={`absolute -inset-1 rounded-full animate-ping opacity-50 ${
-                        cell.faction === "jesus" ? "bg-amber-500" : "bg-emerald-500"
+                        cell.faction === "jesus" ? "bg-white" : "bg-slate-400"
                       }`} />
                     )}
 
                     {/* Jesus Ascension celestial aura halo */}
                     {cell.isAscended && (
-                      <div className="absolute -inset-1.5 sm:-inset-2 border-2 border-amber-400 rounded-full animate-pulse shadow-[0_0_15px_rgba(245,158,11,0.8)] bg-amber-500/10 flex items-center justify-center">
-                        <Shield className="absolute top-[-8px] text-amber-300 w-3 h-3 sm:w-4 sm:h-4 fill-amber-950" />
+                      <div className="absolute -inset-1.5 sm:-inset-2 border-2 border-white rounded-full animate-pulse shadow-[0_0_15px_rgba(255,255,255,0.8)] bg-white/10 flex items-center justify-center">
+                        <Shield className="absolute top-[-8px] text-white w-3 h-3 sm:w-4 sm:h-4 fill-slate-950" />
                       </div>
                     )}
 
                     {/* Cyber Drone upgrade outline borders */}
                     {cell.type === "cyber_drone" && (
-                      <div className="absolute -inset-1 border border-emerald-400/60 border-dashed rounded-full animate-spin bg-emerald-500/5 flex items-center justify-center">
-                        <Zap className="absolute bottom-[-6px] text-emerald-300 w-3 h-3 fill-emerald-950" />
+                      <div className="absolute -inset-1 border border-slate-950 border-dashed rounded-full animate-spin bg-slate-950/5 flex items-center justify-center">
+                        <Zap className="absolute bottom-[-6px] text-slate-950 w-3 h-3 fill-white" />
                       </div>
                     )}
 
                     {/* Wine upgraded indicator */}
                     {cell.type === "wine_knight" && (
-                      <div className="absolute -inset-1 border border-red-500/60 rounded-full bg-red-500/5 flex items-center justify-center">
-                        <Sparkles className="absolute top-[-6px] right-[-6px] text-red-400 w-3.5 h-3.5" />
+                      <div className="absolute -inset-1 border border-white/60 rounded-full bg-white/5 flex items-center justify-center">
+                        <Sparkles className="absolute top-[-6px] right-[-6px] text-white w-3.5 h-3.5" />
                       </div>
                     )}
 
@@ -158,8 +158,8 @@ export function ChessBoard({
                     <div
                       className={`relative z-10 text-2xl sm:text-4xl flex items-center justify-center select-none font-medium ${
                         cell.faction === "jesus"
-                          ? "drop-shadow-[0_2px_8px_rgba(245,158,11,0.4)] text-amber-100"
-                          : "drop-shadow-[0_2px_8px_rgba(16,185,129,0.4)] text-emerald-100"
+                          ? "drop-shadow-[0_2px_8px_rgba(255,255,255,0.7)] text-white"
+                          : "drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] text-slate-950"
                       }`}
                     >
                       {getPieceSymbol(cell)}
@@ -203,22 +203,3 @@ export function ChessBoard({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -23,6 +23,11 @@ export interface Piece {
   isAscended?: boolean; // Jesus Protection
   ascendedTurns?: number; // Protection durations
   isCyber?: boolean; // Cyber upgraded status
+  name?: string; // e.g. "Apostle Peter"
+  avatar?: string; // Image avatar path
+  personality?: string; // Character trait description
+  voiceDesc?: string; // Short bio or instruction for AI voice dialogue
+  moveStyle?: "aggressive" | "cautious" | "balanced" | "erratic" | "protective"; // Strategic weighting flag
 }
 
 export type Cell = Piece | null;
@@ -43,6 +48,16 @@ export interface ChatMessage {
   timestamp: string;
 }
 
+export interface CouncilDebate {
+  proposerName: string;
+  proposerText: string;
+  proposerStyle: string;
+  advisorName: string;
+  advisorText: string;
+  advisorRole: string;
+  commanderText: string;
+}
+
 export interface GameState {
   board: Board;
   turn: Faction;
@@ -57,6 +72,7 @@ export interface GameState {
   activePower: string | null; // Currently armed power name
   chats: ChatMessage[];
   isThinking: boolean;
+  latestDebate?: CouncilDebate;
 }
 
 export type PowerID =
@@ -81,22 +97,3 @@ export interface PowerSpec {
   faction: Faction;
   requiresTarget: "friendly" | "enemy" | "empty" | "any" | "captured" | "none";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
