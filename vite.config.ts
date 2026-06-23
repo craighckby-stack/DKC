@@ -6,7 +6,7 @@ import path from 'path';
 /**
  * DARLEK CANN v3.0 - Build Orchestrator
  * Architecture: Vite + React + Tailwind + Agent-Core Integration
- * Purpose: High-performance transpilation for autonomous agent swarms.
+ * Integration: Siphoned from Sovereign-Kernel & SN-OMEGA patterns.
  */
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
         '@lib': path.resolve(__dirname, './src/lib'),
         '@types': path.resolve(__dirname, './src/types'),
         '@core': path.resolve(__dirname, './src/core'),
+        '@agents': path.resolve(__dirname, './src/agents'),
       },
     },
     server: {
@@ -40,26 +41,22 @@ export default defineConfig(({ mode }) => {
       target: 'esnext',
       rollupOptions: {
         output: {
-          // Granular chunking for agent-core stability
           manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
-            if (id.includes('src/core')) {
-              return 'agent-core';
-            }
+            if (id.includes('node_modules')) return 'vendor';
+            if (id.includes('src/core')) return 'agent-core';
+            if (id.includes('src/agents')) return 'agent-swarm';
           },
         },
       },
       reportCompressedSize: false,
+      cssCodeSplit: true,
     },
     define: {
-      'process.env.BUILD_VERSION': JSON.stringify(process.env.npm_package_version || '0.0.0'),
-      'process.env.AGENT_CORE_ID': JSON.stringify('DARLEK-CANN-V3-CORE'),
-      'process.env.NODE_ENV': JSON.stringify(mode),
+      '__BUILD_TIMESTAMP__': JSON.stringify(new Date().toISOString()),
+      '__AGENT_CORE_VERSION__': JSON.stringify(process.env.npm_package_version || '3.0.0'),
     },
     optimizeDeps: {
-      include: ['react', 'react-dom'],
+      include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
       exclude: ['@core/heavy-compute-worker'],
     },
   };
