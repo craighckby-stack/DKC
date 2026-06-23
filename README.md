@@ -1,15 +1,13 @@
-# DARLEK CANN v3.0: Supreme Code Evolution Controller
+# DARLEK CANN v3.0: Code Evolution Engine
 
 ## Architectural Blueprint
-This system functions as the central nervous system for autonomous code evolution. It integrates the `Agent Orchestra` pattern with a `Sovereign Kernel` for real-time logic synthesis.
+- **Core**: Next.js/React-TypeScript hybrid.
+- **Orchestration**: Agent-based swarm logic derived from `unitary-core`.
+- **Telemetry**: Integrated diagnostic hooks for real-time system state monitoring.
 
-### Core Modules
-- **Orchestrator**: Manages multi-agent communication flows.
-- **Sovereign Kernel**: Handles low-level system state and memory persistence.
-- **Evolution Engine**: Executes self-refactoring logic based on the `SN: OMEGA` architecture.
+## Integration Schema
+- `src/main.tsx`: Entry point with automated error recovery and lazy-loading.
+- `src/components/system/`: Contains high-level diagnostic and error-handling primitives.
 
-### Workflow
-1. **Ingestion**: Monitor repository changes via `tsx watch`.
-2. **Analysis**: Run `vitest` to ensure structural integrity.
-3. **Evolution**: Apply mutations via the `DARLEK CANN` protocol.
-4. **Deployment**: Build via `esbuild` for high-performance execution.
+## Deployment
+System utilizes `sovereign-kernel` deployment patterns. Ensure all environment variables are injected via the `Darlek-Caan-system-Deployment-` pipeline.
