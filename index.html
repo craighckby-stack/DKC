@@ -13,15 +13,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>DARLEK CANN | Supreme Evolution Controller</title>
     <style>
-      :root { --bg: #020617; --accent: #3b82f6; --text: #f1f5f9; --surface: #0f172a; }
+      :root { 
+        --bg: #020617; 
+        --accent: #3b82f6; 
+        --text: #f1f5f9; 
+        --surface: #0f172a; 
+        --error: #ef4444;
+      }
       * { box-sizing: border-box; scroll-behavior: smooth; }
       body { margin: 0; background-color: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
-      #root { min-height: 100vh; display: flex; flex-direction: column; opacity: 0; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+      #root { min-height: 100vh; display: flex; flex-direction: column; opacity: 0; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
       #root.ready { opacity: 1; }
-      .orchestration-overlay { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--bg); z-index: 9999; transition: opacity 0.4s ease-out; }
+      .orchestration-overlay { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--bg); z-index: 9999; transition: opacity 0.5s ease-in-out; }
       .quantum-spinner { width: 48px; height: 48px; border: 3px solid #1e293b; border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-      .status-text { margin-top: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #64748b; letter-spacing: 0.1em; text-transform: uppercase; }
+      .status-text { margin-top: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #64748b; letter-spacing: 0.15em; text-transform: uppercase; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      [data-error] { color: var(--error); }
     </style>
   </head>
   <body>
@@ -35,18 +42,25 @@
       const loader = document.getElementById('loader');
       const root = document.getElementById('root');
       
+      const diagnostics = [
+        { msg: 'SYNCING_AGENT_SWARM', delay: 600 },
+        { msg: 'CALIBRATING_QUANTUM_LOGIC', delay: 400 },
+        { msg: 'ESTABLISHING_NEURAL_LINK', delay: 500 }
+      ];
+
       const bootSequence = async () => {
         try {
-          status.innerText = 'SYNCING_AGENT_SWARM...';
-          await new Promise(r => setTimeout(r, 800));
-          status.innerText = 'CALIBRATING_QUANTUM_LOGIC...';
-          await new Promise(r => setTimeout(r, 600));
+          for (const step of diagnostics) {
+            status.innerText = step.msg + '...';
+            await new Promise(r => setTimeout(r, step.delay));
+          }
           root.classList.add('ready');
           loader.style.opacity = '0';
-          setTimeout(() => loader.remove(), 400);
+          setTimeout(() => loader.remove(), 500);
         } catch (e) {
-          status.innerText = 'CRITICAL_BOOT_FAILURE';
-          console.error('Orchestration Error:', e);
+          status.setAttribute('data-error', 'true');
+          status.innerText = 'CRITICAL_BOOT_FAILURE: ' + e.message;
+          console.error('[DARLEK_CANN_CORE_ERROR]:', e);
         }
       };
       
