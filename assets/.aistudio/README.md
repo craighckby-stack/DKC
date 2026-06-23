@@ -1,13 +1,12 @@
 # AI Studio Workspace: Architectural Blueprint
 
 ## Overview
-This directory serves as the nexus for AI agent orchestration, prompt engineering, and model configuration for the `darlek-cann-v3` ecosystem.
+This directory serves as the isolated workspace for the DARLEK CANN v3.0 evolution engine. It manages the lifecycle of agent definitions, epistemic schemas, and simulation artifacts.
 
-## Directory Structure
-- `/agent_definitions`: YAML/JSON schemas for agent persona and behavioral constraints.
-- `/prompts`: Version-controlled prompt templates for multi-tier LLM fallback.
-- `/schemas`: TypeScript interface definitions for cross-agent communication.
-- `/workflows`: JSON-defined execution pipelines for the epistemic debate engine.
+## Integration Schema
+- **Schemas/**: Contains the structural definitions for agent communication protocols.
+- **Agent_Definitions/**: YAML-based configuration for the Agent Orchestra.
+- **Workflows/**: JSON-serialized execution graphs for multi-tier LLM fallback.
 
-## Integration
-This studio integrates directly with the `unitary-core` quantum data processing layer. Ensure all new agent definitions conform to the `AgentSchema` defined in `/schemas/agent.interface.ts`.
+## Security Protocol
+All sensitive environment variables and binary model weights are excluded via `.gitignore`. Only structural definitions are committed to ensure the system remains portable and reproducible across the `sovereign-kernel` and `SN: OMEGA` environments.
