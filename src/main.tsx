@@ -1,5 +1,5 @@
 import React, { StrictMode, Suspense, lazy } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
@@ -7,24 +7,32 @@ import './index.css';
  * DARLEK CANN v3.0 - Entry Point Orchestrator
  * Architecture: Sovereign-Kernel / OMEGA-Core
  * Integration: Unitary-Core / SN-OMEGA Telemetry
+ * 
+ * Status: Production-Ready
+ * Lifecycle: Idle-Callback-Optimized
  */
 
 const ErrorBoundary = lazy(() => import('./components/system/ErrorBoundary'));
+
 const LoadingFallback = () => (
   <div className="system-init-pulse" role="status" aria-live="polite">
-    INITIALIZING_OMEGA_CORE_SYSTEM...
+    <span className="animate-pulse">INITIALIZING_OMEGA_CORE_SYSTEM...</span>
   </div>
 );
 
-const rootElement = document.getElementById('root');
+let root: Root | null = null;
 
-if (!rootElement) {
-  throw new Error('CRITICAL_FAILURE: Root DOM node not found. System cannot initialize.');
-}
+const initializeSystem = (): void => {
+  const rootElement = document.getElementById('root');
+  if (!rootElement) {
+    console.error('CRITICAL_FAILURE: Root DOM node not found.');
+    return;
+  }
 
-const initializeSystem = () => {
-  const root = createRoot(rootElement);
-  
+  if (!root) {
+    root = createRoot(rootElement);
+  }
+
   root.render(
     <StrictMode>
       <Suspense fallback={<LoadingFallback />}>
@@ -36,19 +44,19 @@ const initializeSystem = () => {
   );
 };
 
-// Performance-optimized initialization using requestIdleCallback
-// Siphoned from sovereign-kernel lifecycle patterns
-if (typeof window !== 'undefined') {
-  const init = () => {
+const bootstrap = () => {
+  try {
     initializeSystem();
     console.info('DARLEK_CANN_SYSTEM: OMEGA_CORE_ONLINE. Telemetry active.');
-  };
+  } catch (err) {
+    console.error('BOOTSTRAP_FAILURE: OMEGA_CORE_CRASHED', err);
+  }
+};
 
+if (typeof window !== 'undefined') {
   if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(init);
+    (window as any).requestIdleCallback(bootstrap);
   } else {
-    setTimeout(init, 1);
+    setTimeout(bootstrap, 1);
   }
 }
-
-export default initializeSystem;
