@@ -12,8 +12,7 @@ const promises = remoteBlobs.filter(f => f.path.startsWith('src/') && fs.existsS
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         if (data !== localContent) {
-           console.log("Changed: " + fileObj.path);
-           changed.push(fileObj);
+changed.push(fileObj);
            fs.writeFileSync(fileObj.path, data);
         }
         resolve();
@@ -23,5 +22,5 @@ const promises = remoteBlobs.filter(f => f.path.startsWith('src/') && fs.existsS
 });
 
 Promise.all(promises).then(() => {
-   console.log(`Found and updated ${changed.length} changed files.`);
 });
+
