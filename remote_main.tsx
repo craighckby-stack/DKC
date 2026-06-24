@@ -56,5 +56,5 @@ try {
 // Initialize development tools if in development
 if (isDevelopment) {
   // Example: Initialize React DevTools or other development tools
-  console.log('Development mode enabled');
 }
+
