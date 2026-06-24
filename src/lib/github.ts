@@ -12,3 +12,4 @@ export const getGitHubConfig = () => {
     isDemoMode: username === "craighckby-stack" && repoName === "god-virus"
   };
 };
+
