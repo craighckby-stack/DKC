@@ -16,12 +16,10 @@ function download(fileObj) {
         
         // Skip .md docs if they clash or are not strictly code needed immediately (actually let's just write them)
         fs.writeFileSync(fileObj.path, data);
-        console.log("Downloaded " + fileObj.path);
-        resolve();
+resolve();
       });
     }).on('error', err => {
-      console.log('Error downloading ' + fileObj.path + ': ' + err.message);
-      resolve();
+resolve();
     });
   });
 }
@@ -33,7 +31,7 @@ async function doAll() {
        count++;
     }
   }
-  console.log(`Downloaded ${count} files.`);
 }
 
 doAll();
+
