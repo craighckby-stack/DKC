@@ -8,8 +8,7 @@ let changed = [];
 function checkNext() {
   if (index >= remoteBlobs.length) {
     fs.writeFileSync('changed_files.json', JSON.stringify(changed));
-    console.log(`Found ${changed.length} changed files.`);
-    return;
+return;
   }
   const fileObj = remoteBlobs[index++];
   if (!fileObj.path.startsWith('src/')) { checkNext(); return; }
@@ -21,8 +20,7 @@ function checkNext() {
         res.on('data', chunk => data += chunk);
         res.on('end', () => {
           if (data !== localContent) {
-             console.log("Changed: " + fileObj.path);
-             changed.push(fileObj);
+changed.push(fileObj);
              // Let's also overwrite it since it's changed!
              fs.writeFileSync(fileObj.path, data);
           }
@@ -35,3 +33,4 @@ function checkNext() {
 }
 
 checkNext();
+
