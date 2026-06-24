@@ -30,6 +30,6 @@ https.get('https://api.github.com/repos/craighckby-stack/epistemic_debate_engine
     // We need to compare contents because git shas are blob shas (which include length headers).
     // Let's just download the remote files that are present locally and compare their text!
     fs.writeFileSync('remote_blobs.json', JSON.stringify(remoteFiles));
-    console.log("Written blobs");
-  });
 });
+});
+
