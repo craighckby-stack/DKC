@@ -50,3 +50,4 @@ Both commanders wield dynamic spell decks powered by **Power Points (PP)** accum
 *   **AI Engine**: Server-side **Gemini 3.5 Flash** models with structured JSON schemas generating high-fidelity multi-turn fan-fiction dialogues and cabinet transcripts.
 *   **Resiliency Layer**: Includes local-level semantic fallback generators in case of API speed-throttling or token limit restrictions.
 
+
