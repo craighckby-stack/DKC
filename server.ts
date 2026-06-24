@@ -102,8 +102,7 @@ async function startServer() {
     };
 
     if (!client) {
-      console.log("No GEMINI_API_KEY found, playing fallback dialogues.");
-      let jText = JESUS_FALLBACKS[Math.floor(Math.random() * JESUS_FALLBACKS.length)];
+let jText = JESUS_FALLBACKS[Math.floor(Math.random() * JESUS_FALLBACKS.length)];
       let cText = CAAN_FALLBACKS[Math.floor(Math.random() * CAAN_FALLBACKS.length)];
 
       if (movingPiece) {
@@ -232,10 +231,7 @@ Return a valid JSON object matching this schema exactly:
       try {
         errStr += " " + JSON.stringify(err).toLowerCase();
       } catch (e) {}
-
-      console.log("Using local offline fallback dialogs (API unavailable).");
-
-      const isQuotaExceeded = errStr.includes("429") || errStr.includes("quota") || errStr.includes("exhausted");
+const isQuotaExceeded = errStr.includes("429") || errStr.includes("quota") || errStr.includes("exhausted");
       const isServiceUnavailable = errStr.includes("503") || errStr.includes("unavailable") || errStr.includes("high demand") || errStr.includes("spike");
       
       const jText = JESUS_FALLBACKS[Math.floor(Math.random() * JESUS_FALLBACKS.length)];
@@ -291,8 +287,8 @@ Return a valid JSON object matching this schema exactly:
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Darlek Caan vs Jesus Chess Server] running at http://localhost:${PORT}`);
-  });
+});
 }
 
 startServer();
+
