@@ -25,19 +25,14 @@ https.get('https://api.github.com/repos/craighckby-stack/epistemic_debate_engine
       return results;
     }
     const localFiles = walk('src');
-    
-    console.log("Files in remote but not local:");
-    remoteFiles.forEach(f => {
+remoteFiles.forEach(f => {
       if (!localFiles.includes(f) && f.startsWith('src/')) {
-        console.log("  " + f);
-      }
+}
     });
-
-    console.log("\nFiles in local but not remote:");
-    localFiles.forEach(f => {
+localFiles.forEach(f => {
       if (!remoteFiles.includes(f)) {
-        console.log("  " + f);
-      }
+}
     });
   });
 });
+
