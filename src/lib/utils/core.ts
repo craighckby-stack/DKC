@@ -22,3 +22,4 @@ export function createLogEntry(type: EvolutionLogEntry['type'], description: str
     details
   };
 }
+
