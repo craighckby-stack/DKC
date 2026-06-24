@@ -29,6 +29,6 @@ https.get('https://api.github.com/repos/craighckby-stack/epistemic_debate_engine
     const missing = remoteFiles.filter(f => !localFiles.includes(f.path) && f.path.startsWith('src/'));
     
     fs.writeFileSync('missing_files.json', JSON.stringify(missing));
-    console.log(`Found ${missing.length} missing files.`);
-  });
 });
+});
+
