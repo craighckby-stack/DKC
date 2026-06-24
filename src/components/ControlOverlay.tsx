@@ -245,12 +245,3 @@ export function ControlOverlay({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
