@@ -48,3 +48,4 @@ const eslintConfig = [...nextCoreWebVitals, ...nextTypescript, {
 }];
 
 export default eslintConfig;
+
