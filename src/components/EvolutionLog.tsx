@@ -83,3 +83,4 @@ export default function EvolutionLog({ entries }: EvolutionLogProps) {
     </div>
   );
 }
+
