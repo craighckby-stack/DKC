@@ -174,3 +174,4 @@ export default function MutationHistoryPanel({ sessionId, refreshTrigger }: Muta
     </div>
   );
 }
+
