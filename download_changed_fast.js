@@ -24,3 +24,4 @@ changed.push(fileObj);
 Promise.all(promises).then(() => {
 });
 
+
