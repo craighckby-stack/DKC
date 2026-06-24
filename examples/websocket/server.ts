@@ -47,12 +47,9 @@ const createUserMessage = (username: string, content: string): Message => ({
 })
 
 io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`)
-
-  // Add test event handler
+// Add test event handler
   socket.on('test', (data) => {
-    console.log('Received test message:', data)
-    socket.emit('test-response', { 
+socket.emit('test-response', { 
       message: 'Server received test message', 
       data: data,
       timestamp: new Date().toISOString()
@@ -78,9 +75,7 @@ io.on('connection', (socket) => {
     // Send current user list to new user
     const usersList = Array.from(users.values())
     socket.emit('users-list', { users: usersList })
-    
-    console.log(`${username} joined the chat room, current online users: ${users.size}`)
-  })
+})
 
   socket.on('message', (data: { content: string; username: string }) => {
     const { content, username } = data
@@ -89,8 +84,7 @@ io.on('connection', (socket) => {
     if (user && user.username === username) {
       const message = createUserMessage(username, content)
       io.emit('message', message)
-      console.log(`${username}: ${content}`)
-    }
+}
   })
 
   socket.on('disconnect', () => {
@@ -103,11 +97,8 @@ io.on('connection', (socket) => {
       // Send leave message to all users
       const leaveMessage = createSystemMessage(`${user.username} left the chat room`)
       io.emit('user-left', { user: { id: socket.id, username: user.username }, message: leaveMessage })
-      
-      console.log(`${user.username} left the chat room, current online users: ${users.size}`)
-    } else {
-      console.log(`User disconnected: ${socket.id}`)
-    }
+} else {
+}
   })
 
   socket.on('error', (error) => {
@@ -117,22 +108,17 @@ io.on('connection', (socket) => {
 
 const PORT = 3003
 httpServer.listen(PORT, () => {
-  console.log(`WebSocket server running on port ${PORT}`)
 })
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('Received SIGTERM signal, shutting down server...')
-  httpServer.close(() => {
-    console.log('WebSocket server closed')
-    process.exit(0)
+httpServer.close(() => {
+process.exit(0)
   })
 })
 
 process.on('SIGINT', () => {
-  console.log('Received SIGINT signal, shutting down server...')
-  httpServer.close(() => {
-    console.log('WebSocket server closed')
-    process.exit(0)
+httpServer.close(() => {
+process.exit(0)
   })
 })
