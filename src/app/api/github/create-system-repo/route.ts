@@ -425,9 +425,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return {
     files: [
       { path: 'package.json', content: packageJson },
-      { path: 'README.md', content: readmeMd },
-      { path: 'src/app/globals.css', content: globalsCss },
-      { path: 'src/app/layout.tsx', content: layoutTsx }
-    ]
-  };
-}
+    
