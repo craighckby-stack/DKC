@@ -15,13 +15,10 @@ https.get(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?rec
     
     // We only restore src/ branch because package.json might have changed
     const srcFiles = tree.filter(f => f.type === 'blob' && f.path.startsWith('src/'));
-    console.log("Restoring " + srcFiles.length + " files from " + repo);
-    
-    let index = 0;
+let index = 0;
     function downloadNext() {
       if (index >= srcFiles.length) {
-         console.log("ALL RESTORED!");
-         return;
+return;
       }
       const file = srcFiles[index++];
       // Create subdirectories
@@ -40,3 +37,4 @@ https.get(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?rec
     downloadNext();
   });
 });
+
