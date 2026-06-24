@@ -156,3 +156,4 @@ function buildResponse(staticIssues: Array<{ type: string; severity: string; mes
   });
 }
 
+
