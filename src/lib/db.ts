@@ -68,8 +68,7 @@ export function performSelfHealing() {
     // Attempt to disconnect prisma to release SQLite locks
     if (prismaInstance) {
       try {
-        console.log('[Database Setup] Disconnecting active Prisma client...');
-        const staleInstance = prismaInstance;
+const staleInstance = prismaInstance;
         prismaInstance = null;
         if (globalForPrisma.prisma) {
           globalForPrisma.prisma = undefined;
@@ -85,11 +84,8 @@ export function performSelfHealing() {
       try { fs.unlinkSync(dbPath); } catch (e) {}
     }
     cleanupWalFiles();
-    
-    console.log('[Database Setup] Rebuilding Prisma schema and client...');
-    execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
-    console.log('[Database Setup] Database healing completed successfully!');
-  } catch (healErr) {
+execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+} catch (healErr) {
     console.error('[Database Setup] Self-healing fatal failure:', healErr);
   } finally {
     isHealing = false;
@@ -131,8 +127,7 @@ function createCallableProxy(prop: string | symbol): any {
             console.error(`[Prisma Proxy Direct] Database corruption detected on ${String(prop)}. Healing database...`);
             performSelfHealing();
             if (attempt < 2) {
-              console.log(`[Prisma Proxy Direct] Retrying ${String(prop)} after successful rebuild...`);
-              return execute(attempt + 1);
+return execute(attempt + 1);
             }
           }
           throw err;
@@ -177,8 +172,7 @@ function createCallableProxy(prop: string | symbol): any {
               console.error(`[Prisma Proxy Model] Database corruption detected on ${String(prop)}.${String(subProp)}. Rebuilding ...`);
               performSelfHealing();
               if (attempt < 2) {
-                console.log(`[Prisma Proxy Model] Retrying query ${String(prop)}.${String(subProp)} after successful rebuild...`);
-                return execute(attempt + 1);
+return execute(attempt + 1);
               }
             }
             throw err;
