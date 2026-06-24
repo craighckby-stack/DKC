@@ -28,3 +28,4 @@ signInAnonymously(auth).catch(err => {
 });
 
 testConnection();
+
