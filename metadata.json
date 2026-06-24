@@ -1,9 +1,40 @@
 {
-  "name": "Darlek Caan vs Jesus Chess",
-  "description": "An epic, chaotic hybrid chess game pitting the temporal insanity of Dalek Caan against the divine miracles of Jesus Christ. Includes AI personalities, custom thematic powers, and fully-narrated commentary.",
+  "name": "Darlek Cann Chess",
+  "description": "A chess game implementation inspired by the Darlek Cann Chess repository.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
